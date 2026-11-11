@@ -1,0 +1,58 @@
+瑶瑶指数强度量化全览 · V42 免费家庭共享行情版
+
+【目标】
+1. 全家共用同一份“已获取的历史行情”，而非每人打开浏览器就扫描1000多只ETF。
+2. 不需要购买 Wind / 同花顺 iFinD / Tushare 的会员，不需要购买服务器。
+3. 工作日中国股市收盘后，由 GitHub Actions 分批更新：ETF历史日K、部分指数/行业板块日K。
+4. 不伪造行情。受限于公共数据接口，并不能保证每只ETF每天获取成功、也不能承诺永久免费或全市场100%覆盖。
+
+【这不是像 Netlify 那样直接扔ZIP就能自动运行】
+此ZIP是一个完整的 GitHub 仓库项目：包含网页、Python自动更新器、GitHub工作流。
+必须创建 GitHub 免费账号、公开仓库并启用 GitHub Pages / GitHub Actions。
+网站建好后，分享的是 GitHub Pages 的公开网址：
+https://你的GitHub用户名.github.io/yaoyao-etf/
+家人打开此网址，读取的是同一份 GitHub Pages 已发布的静态行情数据。
+Netlify 旧网址暂时不会自动同步；要保留旧域名需另行做域名/数据来源配置。
+
+【配置：最重要的六步】
+1. 注册并登录 https://github.com （免费）。
+2. 新建一个 PUBLIC（公开）的仓库，仓库名建议 yaoyao-etf。不要把账号密钥、身份证等隐私上传。
+3. 把本ZIP解压后的内容上传到仓库根目录，必须完整保留隐藏目录 .github/workflows/update-market.yml、scripts/update_market.py 和 index.html。
+   可使用 GitHub 网页上传文件/文件夹，或 Git 命令行。注意不能直接把 ZIP 原封不动放到仓库里。
+4. 仓库 Settings -> Pages -> Build and deployment -> Source 选择 GitHub Actions。
+5. 仓库 Actions -> 「每日 ETF 共享行情更新」-> Run workflow 手动运行一次，观察日志是否成功。
+   第一次可能因为免费的行情接口限流或 GitHub 网络访问失败而运行不成功，无法保证首次立即获取全市场。
+6. 成功发布后在 Settings -> Pages 中找到公开网址并发给家人。交易日更新不要求每位家人保持浏览器开启。
+
+【数据与更新说明】
+- GitHub Actions 工作日北京时间17:27、18:27、19:27、20:27、21:27、22:27、23:27 分批更新，定时任务可能延迟、跳过。
+- 每轮最多160只ETF历史日K；分多轮覆盖，首次完整覆盖可能需要几个交易日，且公共接口成功率未知。
+- 指数/行业板块历史日K每轮最多26项，失败则保留旧日期数据。
+- 排行榜需要同一交易日且历史至少66根日K；最新数据只到历史交易日，不是盘中实时。
+- 有些免费日K缺失成交额；保持空值，不能通过成交量伪造。
+- 页面上的资金净流入功能仍可能调用原网页接口；本升级未承诺资金数据稳定，每处数据源应分别验证。
+- 如果免费ETF名单端口失败，将保留之前已发现的清单，但未验证的完整性不能显示“100%全市场”。
+- 自动生成的数据文件位于 GitHub Pages /data/manifest.json、/data/chunks/*.json、/data/index.json。
+- 任何人都可看到公开仓库及公开行情快照，不适合保存个人账户、持仓等隐私资料。
+- Github 官方说明：公开仓库若连续60天没有仓库活动，定时工作流可能被自动停用；需要到 Actions 恢复。
+- 请确认公共数据接口及原始来源的使用协议是否允许当前用途；代码开源免费并不代表所有行情数据可以任意公开再分发。
+
+【测试】
+- 打开 /data/manifest.json，应看到 schema 为 yy-etf-v1，以及生成时间、名单数量、真实日K成功数量。
+- 页面ETF状态应为「共享日K已加载」；若仍显示「预设样本观察」，说明GitHub数据尚未发布或请求失败。
+- 只显示「共享日K已加载」也不等于已覆盖全市场；看“已保存历史日K数量”和最新交易日。
+- 若 GitHub Pages 未建好，网页仍回退 V41 的浏览器公开行情取数，故可能出现原来的限流问题。
+
+【如果希望继续使用原 Netlify 网址】
+需要先有成功运行的 GitHub Pages 数据地址，再给 Netlify 原网页配置这个固定数据地址；
+否则 Netlify 的网页上传 ZIP 不能自己运行 GitHub Actions。
+
+【技术文件】
+index.html：保留原网页外观和功能、优先读取共享快照
+scripts/update_market.py：Python/AKShare定时采集、合并旧历史、拒绝伪造或数据丢失
+.github/workflows/update-market.yml：GitHub免费定时任务/Pages发布
+requirements.txt：Python依赖
+
+【当前交付状态】
+已完成代码与本地语法/模拟测试。由于运行环境不能连接真实免费行情接口，尚未完成上线连通验证，
+也没有代用户创建GitHub公开仓库或发布网站。
