@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>瑶瑶指数强度量化全览 · V41 行情容错与ETF名单发现</title>
@@ -1413,7 +1412,7 @@ CPO,021933,富国中证通信设备主题ETF联接A"></textarea>
     <div class="etf-rules">新增均线列只比较ETF自身最新日K价与5/20/60日简单移动均线（严格高于为“是”，低于或等于为“否”）；均线数值与最新价均来自ETF日K，最新价不等于交易所实时逐笔价，盘中尚未收盘时为暂值；不足相应根数日K则显示“—”。近5日/20日收益、20日收盘回撤、20日波动均按ETF自己的二级市场日K计算；成交额仅供流动性初筛，不能代替买卖价差和实时溢价率。暂不验证申赎成本、基金费率、跟踪误差及最新IOPV。稳健上涨榜以ETF自身所选10/15/20/30日涨幅及5日动能、20/60日均线、20日收盘回撤、收益波动和成交额综合比较，较重视小回撤与低波动。强势上涨榜优先比较ETF自身5日/所选周期涨幅、趋势和成交活跃度，回撤及波动仅作风险提示，不将“涨得快”冒充为“涨得稳”。榜单周期可选择10、15、20、30个交易日（按历史收盘价计算）；稳健与强势榜会按所选周期重新评分，当日排行榜仍按单日涨跌排名、额外展示所选周期涨幅。当日排行榜使用瑶瑶原版全部非宽基板块的指数日K收盘价相对前一交易日涨幅排名，连续上榜定义为连续进入这个榜单前8名；状态由现有RSI/MA规则产生。若当日行情尚未完整则注明盘中暂定或沿用最近完整交易日，不将缓存冒充实时。另两套ETF榜在全市场数据成功发现后按全市场ETF已扫描数据计算，并提示扫描覆盖率；未扫描基金绝不计入排名。两榜都是自定义历史筛选，不代表未来收益。盘中不作为收盘确认或买入指令；当正式排名为空且数据足够时，展示剔除当天未确认K线后的历史收盘参考榜，独立标注“非正式已核验排名”；行情失败标明等待或历史缓存。</div>
   </section>
   <section id="directEtfPanel" class="etf-audit direct-panel" hidden aria-label="输入代码的ETF独立数据"> <div class="etf-audit-empty">输入6位场内ETF代码后会直接核验其真实日K。</div></section>
-  <div class="flow-explain panel" id="flowExplain" hidden><b>板块资金统计口径：</b><strong>当日净流入（红） / 当日净流出（绿）＝该交易日从开盘以来累计的主力资金净额，正数为净流入、负数为净流出，不是比昨天多流入或流出多少钱。</strong> 顶部「资金」筛选按<strong>资金源最新可核验交易日</strong>的正负净额分类；无资金值、日期未知或日期过旧的板块不会被误判为流入或流出。 盘中为截至接口最近更新时间的累计值，收盘后为相应交易日全天累计；每行显示<strong>资金所属日期及截至时间</strong>，如果无法核对源端日期会明确标注。<b>板块涨跌幅</b>是相对于上一交易日收盘价的价格涨跌，并不是资金变化百分比。<span id="flowStatus">等待获取资金流</span>。本浏览器会按北京时间当天保存已核验的板块资金，更新时按板块代码覆盖当天的最新累计值、不重复相加；新一轮没有取到的保留当天已存结果；跨日自动清除，不将昨日资金当作今天。不同浏览器和设备不会互相同步此资金缓存。小曲线有至少两次同一交易日资金快照时才是资金净额变化，否则显示近10个交易日的<strong>价格趋势（非资金流）</strong>；主力资金为东方财富统计口径而非机构真实持仓变动，不能单独作为买入信号。</div>
+  <div class="flow-explain panel" id="flowExplain" hidden><b>板块资金统计口径：</b><strong>当日净流入（红） / 当日净流出（绿）＝该交易日从开盘以来累计的主力资金净额，正数为净流入、负数为净流出，不是比昨天多流入或流出多少钱。</strong> 顶部「资金」筛选按<strong>资金源最新可核验交易日</strong>的正负净额分类；无资金值、日期未知或日期过旧的板块不会被误判为流入或流出。 盘中为截至接口最近更新时间的累计值，收盘后为相应交易日全天累计；每行显示<strong>资金所属日期及截至时间</strong>，如果无法核对源端日期会明确标注。<b>板块涨跌幅</b>是相对于上一交易日收盘价的价格涨跌，并不是资金变化百分比。<span id="flowStatus">等待获取资金流</span>。本浏览器会按北京时间当天保存已核验的板块资金，更新时按板块代码覆盖当天的最新累计值、不重复相加；新一轮没有取到的保留当天已存结果；跨日自动清除，不将昨日资金当作今天。不同浏览器和设备不会互相同步此资金缓存。小曲线有至少两次同一交易日资金快照时才是资金净额变化，否则显示近10个交易日的<strong>价格趋势（非资金流）</strong>；正式净额为东方财富BK口径；同花顺仅在严格同名时显示独立参考且注明口径、源日未核验，不加入正式资金筛选。主力资金不等于机构真实持仓变动，不能单独作为买入信号。</div>
   <div id="tableWrap" class="sheet" tabindex="0" aria-label="指数强度热力表，宽屏完整展示"><div class="table-loading">正在载入页面和实时行情…</div></div>
   <div class="legend"><span>强度色阶</span><span><i class="swatch heat-verylow"></i>0–20 偏弱</span><span><i class="swatch heat-low"></i>20–35</span><span><i class="swatch heat-neutral"></i>35–50</span><span><i class="swatch heat-warming"></i>50–65</span><span><i class="swatch heat-strong"></i>65–80</span><span><i class="swatch heat-extreme"></i>80–100 偏强</span><span>橙色下划线：旧缓存</span></div>
   <details class="footer-guidance panel" id="footerGuidance">
@@ -1422,7 +1421,7 @@ CPO,021933,富国中证通信设备主题ETF联接A"></textarea>
       <span class="footer-guidance-hint"><span class="hint-expand">展开完整说明</span><span class="hint-collapse">收起说明</span><span class="hint-arrow" aria-hidden="true"></span></span>
     </summary>
     <div class="footer-guidance-body">
-  <div class="flow-explain footer-guidance-explain">可选「板块资金」列同时展示当日主力净流入与主力净流出，数据来自东方财富行业板块公开字段，仅对匹配 BK 行业代码的指数显示；该字段为资金流向算法估计，无法保证实时、完整或与券商统计一致。小曲线优先显示本浏览器当日积累的主力资金净额快照；不足两次时自动改为真实日K价格走势并明确标注，不将价格上涨解释为资金流入。宽基指数不显示虚构的主力净额。</div>
+  <div class="flow-explain footer-guidance-explain">可选「板块资金」列同时展示当日主力净流入与主力净流出，正式主力净额来自东方财富行业板块公开字段并按 BK 代码匹配；同花顺行业/概念资金仅以同名独立参考展示、不冒充BK同口径数值；该字段为资金流向算法估计，无法保证实时、完整或与券商统计一致。小曲线优先显示本浏览器当日积累的主力资金净额快照；不足两次时自动改为真实日K价格走势并明确标注，不将价格上涨解释为资金流入。宽基指数不显示虚构的主力净额。</div>
 <div class="footnote">行情标签按北京时间和实际数据日期判定：「盘中动态」须有当天成功获取的公开日K；「今日已收盘」表示交易时段结束，不承诺收盘数据已经最终确认；「数据使用缓存」说明部分或全部指数本次未取到新数据。新增“数据延迟时间”是距网页最近一次成功获取数据的时长，因日K接口没有源端分钟时间戳，无法计算交易所的真实行情延迟。“收盘确认”只代表当日15:35以后重新抓到当日K线的网页条件，不代表交易所保证数据不再修订；不同指数分别校验，缓存不算已确认。国内法定节假日并未接入交易所日历，休市日请以交易所公告和最新交易日为准。突破可选择5/10/20日标准，必须高于此前相应交易日最高价且站上20日均线；「走强」表示在20日线上方且 RSI≥50，但未创对应新高，不能视为突破。指标以东方财富公开日K计算 RSI(14)，非原站专有算法；最新行情可能延迟，盘中日线数据可能尚未定稿，5分钟只是检查频率而非保证5分钟更新。网络不能连接时会明确提示、绝不生成假数据；缓存数据会标注。全A等权、微盘股、北证等权暂缺可公开直连的同口径数据，不会用别的指数替代。中证2000已修正为东方财富中证系列行情标识2.932000，具体返回结果以网页实际连接为准。第三方接口非官方、可能调整、停用或限流。板块主力净流入为所属交易日自开盘起累计的净额，不是比昨日多流入的钱；每行标注数据所属日期及截至时刻，无法确认源端日期时明确提示。价格走势线并非资金流曲线。本页面不是交易指令。 ETF数据核验明确区分盘中待确认、已核验、数据不足、数据使用缓存和获取失败；未完成核验的基金不参与排名。单只ETF按代码查询独立使用基金交易价格计算RSI和历史回撤；ETF代码必须在行情源成功返回匹配的代码后才显示数值。盘中未收盘或未满足收盘后重新取数条件的数据不参与正式稳健评分；另用最近已完成交易日的真实ETF日K生成历史参考列表，明确标注不构成收盘确认。芝士财富ETF详情页链接依据用户提供的516620.SH示例自动生成：上海上市ETF采用 .SH、深圳上市ETF采用 .SZ。其他代码的详情页路径属于推定规则，如芝士财富调整路由或某只ETF尚未收录，可自行覆盖自定义链接。ETF列表为人工维护的关联参考；另通过公开日K核验ETF自身行情（不是逐笔实时报价）；行业指数与ETF跟踪指数可能不同，特别是标注“≈”的近似品种。T+0表示符合回转交易规则的二级市场份额可当日买卖，并不代表场外基金到账T+0；跨境ETF还可能有溢价、汇率及海外休市风险。</div>
     </div>
   </details>
@@ -1465,6 +1464,55 @@ const ETF_MAP=JSON.parse(document.getElementById('etfMappings').textContent);
 // 行业板块资金：东方财富公开板块资金流列表。宽基不是行业板块，不做虚假资金映射。
 const FLOW_STORE='yaoyao_sector_fund_snapshots_v3';
 const FLOW_DAILY_STORE='yaoyao_sector_fund_same_day_v42_v1';
+const FLOW_SHARED_URL='./data/sector-flow.json';
+// 同花顺表格是独立板块口径，不能冒充东方财富BK代码的同一数据源。
+S.thsFundByName={};S.thsFundAsOf='';S.thsFundFetchedAt=0;
+let sharedFundPromise=null;
+function parseSharedFlowSnapshot(payload){
+ if(!payload||payload.schema!=='yy-flow-v1')return {received:0,other:0};
+ const today=flowPruneToToday(),now=Date.now();let received=0,other=0;
+ // 只接受已核验源端交易日、真实BK代码、有效数值的东财资金。
+ for(const [code,q] of Object.entries(payload.by_code||{})){
+   const n=safeNum(q?.net),ts=safeNum(q?.sourceTs);
+   if(!/^BK\d+$/.test(code)||q?.sourceDay!==today||n==null||Math.abs(n)>1e14||ts==null||ts<=1e9)continue;
+   const old=S.sectorFlow[code];
+   if(old?.sourceDay===today&&Number.isFinite(old.sourceTs)&&old.sourceTs>ts)continue;
+   const src=beijingClock(new Date(ts*1000));if(src.day!==today)continue;
+   S.sectorFlow[code]={net:n,pct:safeNum(q.pct),
+      ratio:safeNum(q.ratio),
+      sourceDay:today,sourceAt:src.time,sourceTs:ts,at:beijingClock().time,
+      sourceName:'东方财富（GitHub共享）',restoredFromHistory:false};
+   flowHistoryRecord(code,n,today);received++;
+ }
+ // 不从爬取时间推断同花顺的交易日期；只能作为未核验日期的独立参考。
+ const byName={};
+ if(payload.generated_day===today){
+  for(const [name,q] of Object.entries(payload.by_name||{})){
+    if(!name||name.length>24||!q||q.source!=='同花顺'||safeNum(q.net)==null||Math.abs(safeNum(q.net))>1e14)continue;
+    byName[name]={net:safeNum(q.net),pct:safeNum(q.pct),
+      group:q.group==='概念'?'概念':'行业',source:'同花顺',snapshotAt:payload.generated_at||'',dateVerified:false};
+    other++;
+  }
+ }
+ S.thsFundByName=byName;S.thsFundAsOf=payload.generated_at||'';S.thsFundFetchedAt=now;
+ if(received){flowHistorySave();flowCacheSave();S.sectorFlowFetchedAt=now}
+ return {received,other};
+}
+async function loadSharedFundFlow(){
+ if(sharedFundPromise)return sharedFundPromise;
+ const controller=typeof AbortController!=='undefined'?new AbortController():null;
+ const tm=controller?setTimeout(()=>controller.abort(),6500):null;
+ sharedFundPromise=(async()=>{
+  try{
+   const u=FLOW_SHARED_URL+'?v='+Math.floor(Date.now()/300000);
+   const res=await fetch(u,{cache:'no-store',...(controller?{signal:controller.signal}:{})});
+   if(!res.ok)return {received:0,other:0};
+   return parseSharedFlowSnapshot(await res.json());
+  }catch{return {received:0,other:0}}
+  finally{if(tm)clearTimeout(tm);sharedFundPromise=null}
+ })();return sharedFundPromise;
+}
+
 /* V42资金增量缓存：仅保存北京时间当天、且源端日期确认是当天的净额。
    同一只板块以代码为键覆盖最新累计快照，不把多次刷新金额相加。
    这个缓存只属于当前浏览器/当前网址，不是 GitHub 共享数据。 */
@@ -1485,7 +1533,7 @@ function flowCacheSave(){
    quotes[code]={net:q.net,pct:Number.isFinite(q.pct)?q.pct:null,
     ratio:Number.isFinite(q.ratio)?q.ratio:null,sourceDay:today,
     sourceAt:q.sourceAt||null,at:q.at||null,sourceTs:Number.isFinite(q.sourceTs)?q.sourceTs:null,
-    restoredFromHistory:!!q.restoredFromHistory};
+    restoredFromHistory:!!q.restoredFromHistory,sourceName:q.sourceName||'东方财富'};
  }
  try{
    if(Object.keys(quotes).length){localStorage.setItem(FLOW_DAILY_STORE,JSON.stringify({v:1,day:today,savedAt:Date.now(),quotes}));S.sectorFlowStored=true}
@@ -1503,7 +1551,7 @@ function flowCacheRestore(){
       S.sectorFlow[code]={net:q.net,pct:Number.isFinite(q.pct)?q.pct:null,
        ratio:Number.isFinite(q.ratio)?q.ratio:null,sourceDay:today,sourceAt:q.sourceAt||null,
        at:q.at||null,sourceTs:Number.isFinite(q.sourceTs)?q.sourceTs:null,
-       restoredFromHistory:!!q.restoredFromHistory};
+       restoredFromHistory:!!q.restoredFromHistory,sourceName:q.sourceName||'东方财富'};
     }
     S.sectorFlowStored=Object.keys(S.sectorFlow).length>0;
     S.sectorFlowFetchedAt=Number.isFinite(raw.savedAt)?Math.min(Date.now(),raw.savedAt):0;
@@ -1597,6 +1645,8 @@ function flowAsOf(quote){
 }
 function sectorFlowCell(item){
  flowPruneToToday();const code=sectorCodeFor(item),m=S.market[item?.s],quote=code?S.sectorFlow[code]:null;
+ // 后备同花顺按精确中文名称匹配，是另一套成分与资金定义，独立标记而不写入BK正式净额。
+ const ths=!quote&&item?.g!=='宽基'?S.thsFundByName[item?.n]:null;
  const flow=quote?.net??null,pct=(quote?.pct??sectorPriceChange(item));
  const price=(m?.series||[]).slice(-10).map(x=>safeNum(x.c)).filter(x=>x!=null&&x>0);
  const today=beijingClock().day;
@@ -1610,12 +1660,13 @@ function sectorFlowCell(item){
  const asof=flowAsOf(quote);
  const status=!code?'非行业板块，无同口径资金流':flow!=null?(quote?.restoredFromHistory?'从本浏览器今日已存资金快照恢复':'取得或保留当天已核验的主力资金净额'):S.sectorFlowStatus==='未开启'?'资金查询尚未开启':'资金待更新：未获得该板块当日已核验净额';
  const fullName=flow==null?(code?'资金暂无数据':'资金不适用'):flow>0?'当日净流入':flow<0?'当日净流出':'当日资金净额';
+ const thsText=ths?`同花顺${ths.group}同名参考：${flowYuan(ths.net)}（口径不同／源端交易日未核验；不参与资金筛选）`:'';
  const amount=flow==null?'':flow===0?'0元':flowYuan(Math.abs(flow)).replace(/^\+/, '');
- const tooltip=`${item.n}\n${status}\n${fullName}${flow==null?'':`：${amount}`}\n主力资金有符号净额：${flowYuan(flow)}\n${asof.detail}\n板块涨跌幅：${flowPct(pct)}（相比上一交易日收盘价）\n折线：${fundCurve?'今天本网页'+history.length+'次资金累计快照的变化':'近10个交易日价格趋势，不是资金曲线'}\n${m?.is_stale?'行业日K包含历史缓存':''}`;
+ const tooltip=`${item.n}\n${thsText?thsText+'\n':''}${status}\n${fullName}${flow==null?'':`：${amount}`}\n主力资金有符号净额：${flowYuan(flow)}\n${asof.detail}\n板块涨跌幅：${flowPct(pct)}（相比上一交易日收盘价）\n折线：${fundCurve?'今天本网页'+history.length+'次资金累计快照的变化':'近10个交易日价格趋势，不是资金曲线'}\n${m?.is_stale?'行业日K包含历史缓存':''}`;
  const flowName=flow==null?fullName:`${fullName} ${amount}`;
  const priceClass=pct==null?'neutral':pct>0?'up':pct<0?'down':'neutral';
- const moneyLabel=flow==null?(code?'资金待更新':'资金不适用'):fullName;
- const moneyValue=flow==null?'—':amount;
+ const moneyLabel=flow==null?(ths?'同花顺同名参考':code?'资金待更新':'资金不适用'):fullName;
+ const moneyValue=flow==null?(ths?flowYuan(ths.net):'—'):amount;
  const lineLabel=fundCurve?'当日资金变化曲线':'近10日价格走势（非资金流）';
  const day=quote?.sourceDay?quote.sourceDay.slice(5).replace('-','/'):'—';
  const time=quote?.sourceAt||quote?.at||'';
@@ -1624,7 +1675,7 @@ function sectorFlowCell(item){
  return `<td class="sticky-flow flow-td flow-v32 flow-v33" title="${esc(tooltip)}">
  <div class="flow-v33-top"><span>${quote?.sourceDay?`${esc(day)}${phase}`:'资金日期待更新'}</span><span>${time?`截至${esc(time.slice(0,5))}`:'时间—'}</span></div>
  <div class="flow-v33-kpis"><div class="flow-v33-kpi"><span class="flow-v33-caption ${priceClass}">当日涨跌</span><strong class="flow-price ${priceClass}">${flowPct(pct)}</strong></div><div class="flow-v33-kpi"><span class="flow-v33-caption ${sign}">${esc(moneyLabel)}</span><strong class="flow-money ${sign}">${esc(moneyValue)}</strong></div></div>
- <div class="flow-v33-chart"><span>${lineLabel}</span>${spark||'<span class="flow-no-curve">—</span>'}</div></td>`;
+ <div class="flow-v33-chart"><span>${ths&&!quote?'同花顺参考·曲线为价格':lineLabel}</span>${spark||'<span class="flow-no-curve">—</span>'}</div></td>`;
 }
 function flowStatusText(){
  flowPruneToToday();const clock=beijingClock();
@@ -1636,30 +1687,36 @@ function flowStatusText(){
    return `${amount}；本轮成功更新${S.sectorFlowLastBatchNew||0}个；${S.sectorFlowStatus==='部分数据'?'部分接口未返回数据，未取得的仍保留今日旧值；':''}同一交易日覆盖最新累计值，不重复相加${storage}。`;
  if(S.sectorFlowStatus==='查询中')return `${amount}；正在检查资金接口，已存的当天结果不会清空。`;
  if(S.sectorFlowStatus==='本地已保存')return `${amount}；已从本浏览器恢复，资金待更新；更新失败也不会清空${storage}。`;
- return `${amount}；资金待更新（接口失败或尚未返回有效当天数据），保留已有同日记录、不跨天沿用${storage}。`;
+ return `${amount}；资金待更新（接口失败或尚未返回有效当天数据），保留已有同日记录、不跨天沿用${storage}。${Object.keys(S.thsFundByName||{}).length?' 同花顺已提供'+Object.keys(S.thsFundByName).length+'个同名参考候选（独立口径、源日未核验，不参与正式筛选）。':''}`;
 }
 function updateFlowStatusUI(){flowPruneToToday();const v=$('flowStatus');if(v)v.textContent=flowStatusText()}
 let flowInflight=null;
-function requestSectorFlowPage(order,page){
+function requestSectorFlowOnce(order,page,host){
  return new Promise(resolve=>{
    const cb='yyFlowCb_'+Date.now()+'_'+Math.floor(Math.random()*999999);let ended=false;
    const script=document.createElement('script');
    const done=(answer)=>{if(ended)return;ended=true;clearTimeout(timer);try{delete window[cb]}catch{}script.remove();resolve(answer)};
-   const timer=setTimeout(()=>done({ok:false,rows:[],total:0,order,page}),9000);
+   const timer=setTimeout(()=>done({ok:false,rows:[],total:0,order,page,host}),6500);
    window[cb]=(payload)=>{
      try{const d=payload?.data, raw=d?.diff;
        const rows=Array.isArray(raw)?raw:(raw&&typeof raw==='object'?Object.values(raw):[]);
-       if(!Array.isArray(rows)||rows.length===0)return done({ok:false,rows:[],total:0,order,page});
-       done({ok:true,rows,total:Math.max(0,Number(d?.total)||0),order,page});
-     }catch{done({ok:false,rows:[],total:0,order,page})}
+       if(!Array.isArray(rows)||rows.length===0)return done({ok:false,rows:[],total:0,order,page,host});
+       done({ok:true,rows,total:Math.max(0,Number(d?.total)||0),order,page,host});
+     }catch{done({ok:false,rows:[],total:0,order,page,host})}
    };
-   script.onerror=()=>done({ok:false,rows:[],total:0,order,page});
-   const q=new URL('https://push2.eastmoney.com/api/qt/clist/get');
-   // po=1: 净流入多的先；po=0: 净流出多的先。抓取两端以避免漏掉流出板块。
+   script.onerror=()=>done({ok:false,rows:[],total:0,order,page,host});
+   const q=new URL('https://'+host+'/api/qt/clist/get');
    for(const [key,val] of Object.entries({cb,pn:page,pz:100,po:order,np:1,fltt:2,invt:2,fs:'m:90+t:2',fid:'f62',fields:'f12,f14,f3,f62,f184,f124',ut:'bd1d9ddb04089700cf9c27f6f7426281',_:Date.now()}))q.searchParams.set(key,val);
    script.src=q.toString();document.head.appendChild(script);
  });
 }
+async function requestSectorFlowPage(order,page){
+ const first=await requestSectorFlowOnce(order,page,'push2.eastmoney.com');
+ if(first.ok)return first;
+ // 东方财富备用域名：只是同源不同入口，非第二家独立资金提供商。
+ return requestSectorFlowOnce(order,page,'push2delay.eastmoney.com');
+}
+
 function flowGoodNum(v){const n=safeNum(v);return n!=null&&n!==1&&Math.abs(n)<1e14?n:null}
 function loadSectorFlow(force=false){
  if(!S.showSectorFlow)return Promise.resolve(false);
@@ -1668,51 +1725,53 @@ function loadSectorFlow(force=false){
  if(!force&&S.sectorFlowFetchedAt&&Date.now()-S.sectorFlowFetchedAt<180000)return Promise.resolve(true);
  S.sectorFlowBusy=true;S.sectorFlowStatus='查询中';updateFlowStatusUI();
  flowInflight=(async()=>{
+   let received=0,foundShared=0,foundThs=0,directOK=false;
    try{
-     const first=await Promise.all([requestSectorFlowPage(1,1),requestSectorFlowPage(0,1)]);
+     // 两条独立路径并行：浏览器可访问东方财富JSONP、GitHub预采集资金（东财+同花顺）。
+     const [shared,first]=await Promise.all([
+       loadSharedFundFlow(),
+       Promise.all([requestSectorFlowPage(1,1),requestSectorFlowPage(0,1)])
+     ]);
+     received+=shared.received;foundShared=shared.received;foundThs=shared.other;
      const map=new Map();
-     const addBatch=r=>{if(!r.ok)return;for(const x of r.rows){
-        const code=String(x?.f12||'');if(!/^BK\d+$/.test(code))continue;
-        const prev=map.get(code);
-        if(!prev||(flowGoodNum(prev.f62)==null&&flowGoodNum(x.f62)!=null))map.set(code,x);
+     const addBatch=r=>{if(!r.ok)return;directOK=true;for(const x of r.rows){
+       const code=String(x?.f12||'');if(!/^BK\d+$/.test(code))continue;
+       const prev=map.get(code);
+       if(!prev||(flowGoodNum(prev.f62)==null&&flowGoodNum(x.f62)!=null))map.set(code,x);
      }};
      first.forEach(addBatch);
      const total=Math.max(...first.map(x=>x.total),0);
      for(let page=2;page<=5&&total>map.size;page++){
        const next=await Promise.all([requestSectorFlowPage(1,page),requestSectorFlowPage(0,page)]);
-       next.forEach(addBatch);
-       if(next.every(x=>!x.ok||!x.rows.length))break;
+       next.forEach(addBatch);if(next.every(x=>!x.ok||!x.rows.length))break;
      }
-     if(!map.size)throw new Error('资金接口未返回板块数据');
-     const clock=beijingClock(),today=flowPruneToToday();let received=0;
+     const clock=beijingClock(),today=flowPruneToToday();
      for(const [code,row] of map){
        const net=flowGoodNum(row.f62),pct=safeNum(row.f3),ratio=safeNum(row.f184);
        const sourceTs=safeNum(row.f124);
        const srcClock=sourceTs&&sourceTs>1e9&&sourceTs<5e9?beijingClock(new Date(sourceTs*1000)):null;
-       // 绝不把昨日、未知日期或无净额的行写入今日资金缓存。
        if(srcClock?.day!==today||net==null)continue;
        const old=S.sectorFlow[code];
-       // 同日数据源偶尔回退旧快照，不能覆盖已经保存的较新源端时刻。
-       if(old?.sourceDay===today&&old.sourceAt&&srcClock.time<old.sourceAt)continue;
-       const updated={net,pct:pct!=null&&Math.abs(pct)<100?pct:old?.pct??null,
+       if(old?.sourceDay===today&&Number.isFinite(old.sourceTs)&&sourceTs<old.sourceTs)continue;
+       S.sectorFlow[code]={net,pct:pct!=null&&Math.abs(pct)<100?pct:old?.pct??null,
           ratio:ratio??old?.ratio??null,at:clock.time,sourceDay:today,
-          sourceAt:srcClock.time,sourceTs,restoredFromHistory:false};
-       S.sectorFlow[code]=updated;received++;
+          sourceAt:srcClock.time,sourceTs,sourceName:'东方财富（浏览器直连）',restoredFromHistory:false};
+       received++;
        if(!clock.weekend)flowHistoryRecord(code,net,today);
      }
-     if(!received)throw new Error('没有取到可核验的当日主力资金净额');
-     S.sectorFlowFetchedAt=Date.now();S.sectorFlowLastBatchNew=received;
-     flowHistorySave();flowCacheSave();
-     S.sectorFlowStatus=first.every(x=>x.ok)?'已更新':'部分数据';
-     return true;
+     if(received){S.sectorFlowFetchedAt=Date.now();S.sectorFlowLastBatchNew=received;
+       flowHistorySave();flowCacheSave();S.sectorFlowStatus=directOK?'已更新':'部分数据';return true}
+     S.sectorFlowLastBatchNew=0;
+     S.sectorFlowStatus=Object.keys(S.sectorFlow).length?'本地已保存':'资金待更新';
+     // 即使只有同花顺的独立参考结果，也不标成「今日已核验」。
+     return foundThs>0;
    }catch(e){
-     // 网络失败只改状态，不能清除 S.sectorFlow，也不能删除浏览器同日缓存。
-     S.sectorFlowStatus='资金待更新';S.sectorFlowLastBatchNew=0;
+     S.sectorFlowStatus=Object.keys(S.sectorFlow).length?'本地已保存':'资金待更新';S.sectorFlowLastBatchNew=0;
      return false;
    }finally{S.sectorFlowBusy=false;flowInflight=null;updateFlowStatusUI();if(!etfQueryCode())render()}
- })();
- return flowInflight;
+ })();return flowInflight;
 }
+
 function etfQueryCode(){const v=(S.q||'').trim().toUpperCase().replace(/^(SZ|SH)/,'').replace(/\.(SZ|SH)$/,'');return /^\d{6}$/.test(v)?v:null}
 function likelyExchangeETF(code){return /^(15\d{4}|5\d{5})$/.test(code)}
 function cheeseSavedUrls(){try{return JSON.parse(localStorage.getItem('yaoyao_cheese_etf_links_v1')||'{}')}catch{return {}}}
