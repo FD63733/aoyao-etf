@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>瑶瑶指数强度量化全览 · V41 行情容错与ETF名单发现</title>
+<title>瑶瑶指数强度量化全览 · V42 多源资金可见性增强</title>
 <style>
 :root{--blue:#27318a;--text:#17243e;--bg:#f2f4f8;--border:#d9dde5;--white:#fff;--shadow:0 2px 14px rgba(39,48,83,.045)}
 *{box-sizing:border-box} html,body{margin:0;min-height:100%;font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",Arial,sans-serif;color:var(--text);background:var(--bg)}
@@ -683,7 +683,7 @@ main{padding-bottom:30px}
 body.fund-observer-mode main>.toolbar,body.fund-observer-mode main>.summary,body.fund-observer-mode main>.signal-overview,
 body.fund-observer-mode main>.market-statebar,body.fund-observer-mode main>.signal-monitor,body.fund-observer-mode main>.data-diagnostics,
 body.fund-observer-mode main>#notice,body.fund-observer-mode main>#etfInfo,body.fund-observer-mode main>#etfAudit,
-body.fund-observer-mode main>#directEtfPanel,body.fund-observer-mode main>#flowExplain,body.fund-observer-mode main>#tableWrap,
+body.fund-observer-mode main>#directEtfPanel,body.fund-observer-mode main>#flowExplain,body.fund-observer-mode main>#yyFlowBar,body.fund-observer-mode main>#tableWrap,
 body.fund-observer-mode main>.legend,body.fund-observer-mode main>#footerGuidance{display:none!important}
 body.fund-observer-mode .fund-observer{display:block!important}
 body:not(.fund-observer-mode) .fund-observer{display:none!important}
@@ -1256,9 +1256,48 @@ body:not(.fund-observer-mode) > main > .toolbar.panel{
 .v39-flow-option:hover,.v39-flow-option:focus-visible{background:#eef3ff;outline:none}
 .v39-flow-option.active{background:#e7eeff;color:#244caa;font-weight:800}
 
+
+/* V42 多源资金可见性与版本更新提示：只增加可视反馈，不触碰原有采集算法 */
+.yy-head-right{position:absolute;right:22px;display:flex;align-items:center;gap:12px;z-index:50}
+header .yy-head-right small{position:static;font-size:12px;font-weight:400;color:#dce3ff;white-space:nowrap}
+.yy-release{position:relative;text-align:left}
+.yy-release>summary{display:flex;align-items:center;gap:5px;list-style:none;cursor:pointer;color:#eef3ff;border:1px solid #7994dd;background:#354793;border-radius:5px;font-size:12px;font-weight:600;padding:6px 10px;white-space:nowrap}
+.yy-release>summary::-webkit-details-marker{display:none}
+.yy-release>summary:hover,.yy-release[open]>summary{background:#4059ab;border-color:#a3b5fa}
+.yy-release-pop{display:none;position:absolute;right:0;top:100%;width:min(358px,calc(100vw - 22px));max-height:min(480px,68vh);overflow:auto;padding:15px 16px;background:#fff;color:#26334b;border:1px solid #dbe3f2;border-radius:9px;box-shadow:0 12px 28px #19294a22;z-index:90;line-height:1.6}
+.yy-release:hover .yy-release-pop,.yy-release:focus-within .yy-release-pop,.yy-release[open] .yy-release-pop{display:block}
+.yy-release-pop h3{font-size:15px;line-height:1.4;margin:0 0 9px;color:#253b74}
+.yy-release-entry{padding:8px 0;border-top:1px solid #edf1f7}
+.yy-release-entry h4{font-size:13px;margin:0 0 3px;color:#29438b}
+.yy-release-entry p{font-size:12px;color:#56657d;margin:3px 0}
+.yy-release-entry .yy-release-date{font-size:12px;color:#8695ab}
+.yy-release-note{margin-top:9px!important;font-size:12px!important;color:#7d879a!important}
+.yy-flowbar{margin-top:7px;min-height:40px;display:flex;align-items:center;gap:8px 13px;justify-content:space-between;flex-wrap:wrap;padding:8px 12px;font-size:12px;color:#65738b}
+.yy-flowbar-primary{display:flex;align-items:center;gap:8px 11px;min-width:0;flex-wrap:wrap}
+.yy-flowbar-label{font-weight:700;color:#314876;white-space:nowrap}
+.yy-flow-pill{display:inline-flex;align-items:center;padding:3px 8px;border:1px solid #e8d4b7;background:#fff4e2;color:#9a661e;border-radius:5px;font-weight:700;white-space:nowrap}
+.yy-flow-pill.fetched{background:#e6f6ee;color:#23784d;border-color:#c4e7d3}
+.yy-flow-pill.busy{background:#ebf2ff;color:#385da6;border-color:#d5e2fd}
+.yy-flowbar-metrics{color:#687994;line-height:1.45}
+.yy-flow-audit{position:relative;flex:0 0 auto}
+.yy-flow-audit>summary{cursor:pointer;font-weight:600;color:#3655a2;padding:4px 1px;white-space:nowrap;list-style:none}
+.yy-flow-audit>summary::-webkit-details-marker{display:none}
+.yy-flow-audit-body{position:absolute;right:0;top:calc(100% + 5px);width:min(430px,calc(100vw - 28px));padding:12px 14px;border:1px solid #dfe5f0;background:white;border-radius:8px;box-shadow:0 8px 22px #2c46702b;z-index:38;color:#53647e;font-size:12px;line-height:1.8}
+.yy-flow-audit-body strong{color:#253e78}
+@media(max-width:900px){header .yy-head-right small{display:none}.yy-head-right{right:10px}}
+@media(max-width:600px){header{justify-content:flex-start;padding-left:10px}header strong{font-size:14px;max-width:calc(100% - 118px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.yy-release>summary{font-size:12px;padding:5px 7px}.yy-flowbar{align-items:flex-start}.yy-flow-audit{margin-left:auto}}
+
 </style></head>
 <body>
-<header><strong id="pageTitle">瑶瑶指数强度量化全览</strong><small>免安装 · 公开行情日K · RSI(14)</small></header>
+<header><strong id="pageTitle">瑶瑶指数强度量化全览</strong><div class="yy-head-right">
+<details class="yy-release" id="yyReleaseNotes"><summary title="鼠标悬停或点击，查看本版优化内容">已优化内容 ▾</summary>
+<div class="yy-release-pop" role="region" aria-label="版本优化记录">
+<h3>版本优化记录</h3>
+<div class="yy-release-entry"><div class="yy-release-date">2026-11-12 · V42资金多源增强</div><h4>1. 资金接口多源备用</h4><p>东方财富直连主备通道、GitHub共享资金快照；同花顺只作独立参考，不直接混用金额。</p><h4>2. 资金获取结果可视化</h4><p>新增资金状态栏，显示今日有效板块数、来源分布与接口状态。没有数据会明确显示“资金待更新”。</p></div>
+<div class="yy-release-entry"><div class="yy-release-date">2026-11-12 · V42资金缓存改进</div><h4>1. 同日增量合并</h4><p>更新成功按板块覆盖最新累计净额，重复刷新不把金额相加；获取失败保留同日已有值。</p><h4>2. 本地恢复及跨日保护</h4><p>关页后同一浏览器可恢复当日资金，跨日失效；本地缓存不自动同步到家人手机。</p></div>
+<div class="yy-release-entry"><div class="yy-release-date">既有V42功能</div><h4>ETF共享历史日K</h4><p>GitHub共享ETF历史数据与资金数据互相独立，资金接口失效不代表ETF行情丢失。</p></div>
+<p class="yy-release-note">以上为当前网页内置功能，不代表第三方接口已获取成功；请以页面的资金状态和来源计数为准。</p>
+</div></details><small>免安装 · 公开行情日K · RSI(14)</small></div></header>
 <main>
   <div class="catalog-switch panel" role="tablist" aria-label="指数分类体系">
     <button id="modeYaoyao" class="catalog-tab active" role="tab" aria-selected="true" data-catalog-mode="yaoyao">瑶瑶指数强度量化全览</button>
@@ -1352,6 +1391,10 @@ CPO,021933,富国中证通信设备主题ETF联接A"></textarea>
       <button class="btn" id="export" title="将当前指数强度和日期导出为CSV">导出 CSV</button>
       <button class="btn primary" id="refresh" title="请求最新行情数据">↻ 更新数据</button>
     </div>
+  </div>
+  <div class="yy-flowbar panel" id="yyFlowBar" role="group" aria-label="当日资金获取情况">
+    <div class="yy-flowbar-primary"><span class="yy-flowbar-label">板块资金获取</span><span class="yy-flow-pill" id="yyFlowState" role="status">资金待更新</span><span class="yy-flowbar-metrics" id="yyFlowMetrics">等待检查东方财富直连、GitHub共享资金和同花顺参考</span></div>
+    <details class="yy-flow-audit"><summary>资金来源与说明 ▾</summary><div class="yy-flow-audit-body"><strong>来源分工</strong><div>东方财富浏览器直连 + GitHub共享：同口径BK主力资金金额，只有核对为今天的数据才进入正式资金筛选。</div><div>同花顺：独立统计口径的参考，不与东财金额相加，也不能冒充当天已核验资金。</div><strong>保存规则</strong><div>同一板块更新覆盖最新累计净额，不重复加总；接口失败保留今日记录；第二天不沿用昨天资金。</div><strong>当前诊断</strong><div id="yyFlowDiagDetail">正在读取资金情况…</div></div></details>
   </div>
   <div class="summary panel"><span id="summaryText">正在初始化指数列表…</span><span class="meta"><span id="asof">交易日：—</span><span id="source"><i class="dot"></i> 等待行情</span><span id="stamp">—</span><span id="countdown" aria-live="off">—</span></span></div>
   <div class="signal-overview panel" role="group" aria-label="趋势状态统计"><b>趋势状态</b><span id="breakoutSummary" class="sig-pill up">突破 —</span><span id="strongSummary" class="sig-pill strong">走强 —</span><span id="chaosSummary" class="sig-pill mid">混沌 —</span><span id="pullbackSummary" class="sig-pill down">回调 —</span><span id="signalOverviewNote" class="signal-note">只统计最近交易日成功获取的数据，未达突破条件不表示程序失效</span></div>
@@ -1689,7 +1732,21 @@ function flowStatusText(){
  if(S.sectorFlowStatus==='本地已保存')return `${amount}；已从本浏览器恢复，资金待更新；更新失败也不会清空${storage}。`;
  return `${amount}；资金待更新（接口失败或尚未返回有效当天数据），保留已有同日记录、不跨天沿用${storage}。${Object.keys(S.thsFundByName||{}).length?' 同花顺已提供'+Object.keys(S.thsFundByName).length+'个同名参考候选（独立口径、源日未核验，不参与正式筛选）。':''}`;
 }
-function updateFlowStatusUI(){flowPruneToToday();const v=$('flowStatus');if(v)v.textContent=flowStatusText()}
+function updateFlowAuditUI(){
+ const line=$('yyFlowBar');if(!line)return;
+ line.hidden=!S.showSectorFlow;
+ if(!S.showSectorFlow)return;
+ const day=flowPruneToToday();const quotes=Object.values(S.sectorFlow||{}).filter(q=>q&&q.sourceDay===day&&Number.isFinite(q.net));
+ const shared=quotes.filter(q=>String(q.sourceName||'').includes('GitHub')).length;
+ const direct=quotes.filter(q=>String(q.sourceName||'').includes('浏览器')).length;
+ const restored=quotes.length-shared-direct;
+ const ths=Object.keys(S.thsFundByName||{}).length;
+ const state=$('yyFlowState'),metrics=$('yyFlowMetrics');
+ if(state){state.textContent=S.sectorFlowBusy?'正在获取资金':quotes.length?`今日已核验 ${quotes.length} 个板块`:'资金待更新';state.className='yy-flow-pill'+(S.sectorFlowBusy?' busy':quotes.length?' fetched':'')}
+ if(metrics)metrics.textContent=`东财直连 ${direct} · GitHub共享 ${shared} · 当日恢复/其他 ${restored} · 同花顺独立参考 ${ths}（不参与正式净额）`;
+ const diag=$('yyFlowDiagDetail');if(diag)diag.textContent=flowStatusText();
+}
+function updateFlowStatusUI(){flowPruneToToday();const v=$('flowStatus');if(v)v.textContent=flowStatusText();updateFlowAuditUI()}
 let flowInflight=null;
 function requestSectorFlowOnce(order,page,host){
  return new Promise(resolve=>{
@@ -4440,6 +4497,19 @@ function initializeWholeMarketScanner(){
     const w=enhancedUI.widgets.get(flow);
     if(w&&w.btn)w.btn.title=flow.title;
   }
+})();
+</script>
+
+<script>
+(function(){
+  const d=document.getElementById('yyReleaseNotes');
+  if(!d)return;
+  if(window.matchMedia&&window.matchMedia('(hover:hover)').matches){
+    d.addEventListener('mouseenter',()=>{d.open=true});
+    d.addEventListener('mouseleave',()=>{d.open=false});
+  }
+  document.addEventListener('pointerdown',e=>{if(d.open&&!d.contains(e.target))d.open=false});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')d.open=false});
 })();
 </script>
 </body></html>
