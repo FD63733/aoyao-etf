@@ -5,23 +5,97 @@ on:
     branches: [main, master]
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 concurrency:
   group: yaoyao-pages-data
   cancel-in-progress: false
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: 保护已有ETF行情（恢复当前Pages已发布的全部共享数据）
+        shell: bash
+        env:
+          MIN_HISTORY_COUNT: '1249'
+        run: |
+          python - <<'PY'
+          import json, os, re, time
+          from pathlib import Path
+          from urllib.request import urlopen, Request
+          repo = os.environ['GITHUB_REPOSITORY']; owner, project = repo.split('/', 1)
+          base = 'https://' + owner + '.github.io/' + ('' if project.lower() == (owner+'.github.io').lower() else project+'/') + 'data/'
+          def fetch(name):
+              for attempt in range(4):
+                  try:
+                      with urlopen(Request(base+name+'?v='+str(int(time.time())),headers={'User-Agent':'Mozilla/5.0 (YYETF-backup)'}),timeout=35) as r:
+                          return r.read()
+                  except Exception:
+                      if attempt == 3: raise
+                      time.sleep(3*(attempt+1))
+          b = fetch('manifest.json'); m = json.loads(b)
+          if m.get('schema')!='yy-etf-v1' or not isinstance(m.get('chunks'),list) or not m['chunks']:
+              raise RuntimeError('Cannot verify prior ETF snapshot: refusing deployment')
+          minimum=int(os.environ.get('MIN_HISTORY_COUNT','0'))
+          if int(m.get('history_count',0)) < minimum:
+              raise RuntimeError('Existing live snapshot has fewer than protected %d ETF: refusing deployment' % minimum)
+          dest=Path('data'); dest.mkdir(exist_ok=True); (dest/'manifest.json').write_bytes(b)
+          count=0; seen=set()
+          for name in m['chunks']:
+              if not re.fullmatch(r'chunks/\d{3,4}\.json',name): raise RuntimeError('Unexpected chunk '+str(name))
+              raw=fetch(name); rows=json.loads(raw)
+              if not isinstance(rows,dict): raise RuntimeError('Invalid chunk '+name)
+              for code in rows:
+                  if code in seen: raise RuntimeError('Duplicate ETF '+code)
+                  seen.add(code)
+              f=dest/name; f.parent.mkdir(exist_ok=True,parents=True); f.write_bytes(raw); count+=1
+          if len(seen)!=int(m['history_count']): raise RuntimeError('Manifest/chunk ETF count mismatch')
+          try:
+              b=fetch('index.json'); json.loads(b); (dest/'index.json').write_bytes(b)
+          except Exception as e:
+              print('Optional index cache not retrieved; live ETF data remains protected:', str(e)[:120])
+          print('SAFE: preserved %d ETF histories in %d chunks' % (len(seen),count))
+          PY
+      - name: 保存改版前的行情备份（可在Actions下载）
+        uses: actions/upload-artifact@v4
+        with:
+          name: etf-before-site-publish-${{ github.run_id }}
+          path: data/
+          retention-days: 90
+          if-no-files-found: error
+      - name: Disable Jekyll
+        run: touch .nojekyll
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
         with:
           path: '.'
-      - id: deployment
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.primary.outputs.page_url || steps.retry.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: primary
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+      - name: Wait for artifact availability before retry
+        if: steps.primary.outcome == 'failure'
+        run: sleep 35
+      - name: Retry deploy once if artifact listing was delayed
+        id: retry
+        if: steps.primary.outcome == 'failure'
         uses: actions/deploy-pages@v4
