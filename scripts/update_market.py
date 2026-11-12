@@ -25,7 +25,10 @@ CHUNKS = DATADIR / 'chunks'
 LOG = logging.getLogger('yy-etf')
 BATCH_LIMIT = max(10, min(260, int(os.getenv('ETF_BATCH_LIMIT', '160'))))
 CHUNK_SIZE = 80
-MAX_WORKERS = 2
+# mini-racer uses an embedded V8 engine; AKShare's Sina history decoder invokes it.
+# Never run those AKShare calls concurrently in one Python process: native SIGTRAP
+# cannot be caught by Python's try/except and would abort the entire build job.
+MAX_WORKERS = 1
 _PACE_LOCK = threading.Lock()
 _NEXT_AT = 0.0
 
@@ -93,9 +96,17 @@ def clean_universe(df):
     return list(ans.values())
 
 
-def discover(ak):
-    probes = [('AKShare东方财富ETF行情列表', lambda: ak.fund_etf_spot_em()),
-              ('AKShare同花顺ETF行情列表（备选，不保证完整）', lambda: ak.fund_etf_spot_ths())]
+def discover(ak, old_universe=None):
+    """Prefer stable cached universe if the ordinary list service is unavailable.
+
+    The THS spot fallback can invoke a JavaScript anti-bot decoder. On an already
+    working family site a published ETF list is safer than needlessly starting
+    another V8 engine in every scheduled build. A first-time install can still
+    try THS, because it has no published universe to recover.
+    """
+    probes = [('AKShare东方财富ETF行情列表', lambda: ak.fund_etf_spot_em())]
+    if not old_universe or len(old_universe) < 60:
+        probes.append(('AKShare同花顺ETF行情列表（备选，不保证完整）', lambda: ak.fund_etf_spot_ths()))
     for label, func in probes:
         try:
             data = clean_universe(func())
@@ -105,6 +116,8 @@ def discover(ak):
             LOG.warning('Universe %s returned %s valid rows', label, len(data))
         except Exception as exc:
             LOG.warning('Universe %s failed: %s', label, exc)
+    if old_universe and len(old_universe) >= 60:
+        LOG.warning('Fresh ETF list unavailable: retain all %d prior verified candidates', len(old_universe))
     return [], '本轮名单接口失败，沿用上次有日期的名单', False
 
 
@@ -227,7 +240,7 @@ def main():
     import akshare as ak
     CHUNKS.mkdir(parents=True, exist_ok=True)
     existing, old_universe, old = prior_snapshot()
-    found, source, from_primary = discover(ak)
+    found, source, from_primary = discover(ak, old_universe)
     if found:
         universe = {x['code']: x for x in found}
         # Keep previous entries, marked as possibly delisted, rather than silently losing their histories.
