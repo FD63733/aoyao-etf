@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>瑶瑶指数强度量化全览 · V41 行情容错与ETF名单发现</title>
@@ -1412,7 +1413,7 @@ CPO,021933,富国中证通信设备主题ETF联接A"></textarea>
     <div class="etf-rules">新增均线列只比较ETF自身最新日K价与5/20/60日简单移动均线（严格高于为“是”，低于或等于为“否”）；均线数值与最新价均来自ETF日K，最新价不等于交易所实时逐笔价，盘中尚未收盘时为暂值；不足相应根数日K则显示“—”。近5日/20日收益、20日收盘回撤、20日波动均按ETF自己的二级市场日K计算；成交额仅供流动性初筛，不能代替买卖价差和实时溢价率。暂不验证申赎成本、基金费率、跟踪误差及最新IOPV。稳健上涨榜以ETF自身所选10/15/20/30日涨幅及5日动能、20/60日均线、20日收盘回撤、收益波动和成交额综合比较，较重视小回撤与低波动。强势上涨榜优先比较ETF自身5日/所选周期涨幅、趋势和成交活跃度，回撤及波动仅作风险提示，不将“涨得快”冒充为“涨得稳”。榜单周期可选择10、15、20、30个交易日（按历史收盘价计算）；稳健与强势榜会按所选周期重新评分，当日排行榜仍按单日涨跌排名、额外展示所选周期涨幅。当日排行榜使用瑶瑶原版全部非宽基板块的指数日K收盘价相对前一交易日涨幅排名，连续上榜定义为连续进入这个榜单前8名；状态由现有RSI/MA规则产生。若当日行情尚未完整则注明盘中暂定或沿用最近完整交易日，不将缓存冒充实时。另两套ETF榜在全市场数据成功发现后按全市场ETF已扫描数据计算，并提示扫描覆盖率；未扫描基金绝不计入排名。两榜都是自定义历史筛选，不代表未来收益。盘中不作为收盘确认或买入指令；当正式排名为空且数据足够时，展示剔除当天未确认K线后的历史收盘参考榜，独立标注“非正式已核验排名”；行情失败标明等待或历史缓存。</div>
   </section>
   <section id="directEtfPanel" class="etf-audit direct-panel" hidden aria-label="输入代码的ETF独立数据"> <div class="etf-audit-empty">输入6位场内ETF代码后会直接核验其真实日K。</div></section>
-  <div class="flow-explain panel" id="flowExplain" hidden><b>板块资金统计口径：</b><strong>当日净流入（红） / 当日净流出（绿）＝该交易日从开盘以来累计的主力资金净额，正数为净流入、负数为净流出，不是比昨天多流入或流出多少钱。</strong> 顶部「资金」筛选按<strong>资金源最新可核验交易日</strong>的正负净额分类；无资金值、日期未知或日期过旧的板块不会被误判为流入或流出。 盘中为截至接口最近更新时间的累计值，收盘后为相应交易日全天累计；每行显示<strong>资金所属日期及截至时间</strong>，如果无法核对源端日期会明确标注。<b>板块涨跌幅</b>是相对于上一交易日收盘价的价格涨跌，并不是资金变化百分比。<span id="flowStatus">等待获取资金流</span>。小曲线有至少两次同一交易日资金快照时才是资金净额变化，否则显示近10个交易日的<strong>价格趋势（非资金流）</strong>；主力资金为东方财富统计口径而非机构真实持仓变动，不能单独作为买入信号。</div>
+  <div class="flow-explain panel" id="flowExplain" hidden><b>板块资金统计口径：</b><strong>当日净流入（红） / 当日净流出（绿）＝该交易日从开盘以来累计的主力资金净额，正数为净流入、负数为净流出，不是比昨天多流入或流出多少钱。</strong> 顶部「资金」筛选按<strong>资金源最新可核验交易日</strong>的正负净额分类；无资金值、日期未知或日期过旧的板块不会被误判为流入或流出。 盘中为截至接口最近更新时间的累计值，收盘后为相应交易日全天累计；每行显示<strong>资金所属日期及截至时间</strong>，如果无法核对源端日期会明确标注。<b>板块涨跌幅</b>是相对于上一交易日收盘价的价格涨跌，并不是资金变化百分比。<span id="flowStatus">等待获取资金流</span>。本浏览器会按北京时间当天保存已核验的板块资金，更新时按板块代码覆盖当天的最新累计值、不重复相加；新一轮没有取到的保留当天已存结果；跨日自动清除，不将昨日资金当作今天。不同浏览器和设备不会互相同步此资金缓存。小曲线有至少两次同一交易日资金快照时才是资金净额变化，否则显示近10个交易日的<strong>价格趋势（非资金流）</strong>；主力资金为东方财富统计口径而非机构真实持仓变动，不能单独作为买入信号。</div>
   <div id="tableWrap" class="sheet" tabindex="0" aria-label="指数强度热力表，宽屏完整展示"><div class="table-loading">正在载入页面和实时行情…</div></div>
   <div class="legend"><span>强度色阶</span><span><i class="swatch heat-verylow"></i>0–20 偏弱</span><span><i class="swatch heat-low"></i>20–35</span><span><i class="swatch heat-neutral"></i>35–50</span><span><i class="swatch heat-warming"></i>50–65</span><span><i class="swatch heat-strong"></i>65–80</span><span><i class="swatch heat-extreme"></i>80–100 偏强</span><span>橙色下划线：旧缓存</span></div>
   <details class="footer-guidance panel" id="footerGuidance">
@@ -1432,7 +1433,7 @@ CPO,021933,富国中证通信设备主题ETF联接A"></textarea>
 <script type="application/json" id="verifiedEtfPeers">{"游戏":[{"code":"159869","name":"游戏ETF华夏","track":"中证动漫游戏指数","relation":"同跟踪指数：与516010比较","type":"t1"},{"code":"516620","name":"影视ETF国泰","track":"中证影视主题指数","relation":"仅相邻主题：不是游戏ETF的同指数替代","type":"related"}],"数字媒体":[{"code":"516620","name":"影视ETF国泰","track":"中证影视主题指数","relation":"仅相关影视主题：与传媒行业宽口径指数不同","type":"related"}]}</script>
 <script>
 'use strict';
-const S={rankDays:15,viewMode:'yaoyao',pendingCatalogRefresh:false,catalog:[],market:{},mode:'group-status',group:'',status:'',q:'',days:15,sortDay:null,sortAsc:false,flowChangeSort:'all',loading:false,lastUpdated:'',serverMode:false,autoMinutes:5,breakoutWindow:10,nextRun:0,changed:false,dates:[],failedLast:0,showT0:true,showJudge:true,rankSort:'default',etfMarket:{},etfBusy:false,etfPendingAgain:false,etfProgress:'',focusETF:'游戏',focusEtfCode:null,etfMetricCache:{},showEtfMa:true,showSectorFlow:true,showDayStatus:true,showTwoDayOutlook:true,showMa5Ma20Analysis:true,sectorFlow:{},sectorFlowHistory:{},sectorFlowStatus:'未开启',sectorFlowBusy:false,sectorFlowFetchedAt:0,flowDirection:'all',etfRankMode:'daily',rankCompareVisible:false,expandedEtf:null,expandedCompareCode:null};
+const S={rankDays:15,viewMode:'yaoyao',pendingCatalogRefresh:false,catalog:[],market:{},mode:'group-status',group:'',status:'',q:'',days:15,sortDay:null,sortAsc:false,flowChangeSort:'all',loading:false,lastUpdated:'',serverMode:false,autoMinutes:5,breakoutWindow:10,nextRun:0,changed:false,dates:[],failedLast:0,showT0:true,showJudge:true,rankSort:'default',etfMarket:{},etfBusy:false,etfPendingAgain:false,etfProgress:'',focusETF:'游戏',focusEtfCode:null,etfMetricCache:{},showEtfMa:true,showSectorFlow:true,showDayStatus:true,showTwoDayOutlook:true,showMa5Ma20Analysis:true,sectorFlow:{},sectorFlowHistory:{},sectorFlowStatus:'未开启',sectorFlowBusy:false,sectorFlowFetchedAt:0,sectorFlowDay:"",sectorFlowLastBatchNew:0,sectorFlowStored:false,flowDirection:'all',etfRankMode:'daily',rankCompareVisible:false,expandedEtf:null,expandedCompareCode:null};
 const $=id=>document.getElementById(id);
 function catalogSourceTag(item){
  if(item.g==='宽基'||(S.viewMode!=='yangjibao'&&!item.isSupplemental))return '';
@@ -1463,15 +1464,77 @@ const ETF_MAP=JSON.parse(document.getElementById('etfMappings').textContent);
 
 // 行业板块资金：东方财富公开板块资金流列表。宽基不是行业板块，不做虚假资金映射。
 const FLOW_STORE='yaoyao_sector_fund_snapshots_v3';
+const FLOW_DAILY_STORE='yaoyao_sector_fund_same_day_v42_v1';
+/* V42资金增量缓存：仅保存北京时间当天、且源端日期确认是当天的净额。
+   同一只板块以代码为键覆盖最新累计快照，不把多次刷新金额相加。
+   这个缓存只属于当前浏览器/当前网址，不是 GitHub 共享数据。 */
+function flowPruneToToday(){
+ const today=beijingClock().day;
+ if(!S.sectorFlowDay){S.sectorFlowDay=today;return today}
+ if(S.sectorFlowDay!==today){
+   S.sectorFlow={};S.sectorFlowHistory={};S.sectorFlowFetchedAt=0;
+   S.sectorFlowLastBatchNew=0;S.sectorFlowStatus='资金待更新';S.sectorFlowDay=today;
+   try{localStorage.removeItem(FLOW_DAILY_STORE);localStorage.removeItem(FLOW_STORE)}catch{}
+ }
+ return today;
+}
+function flowCacheSave(){
+ const today=flowPruneToToday(),quotes={};
+ for(const [code,q] of Object.entries(S.sectorFlow||{})){
+   if(!/^BK\d+$/.test(code)||q?.sourceDay!==today||!Number.isFinite(q?.net))continue;
+   quotes[code]={net:q.net,pct:Number.isFinite(q.pct)?q.pct:null,
+    ratio:Number.isFinite(q.ratio)?q.ratio:null,sourceDay:today,
+    sourceAt:q.sourceAt||null,at:q.at||null,sourceTs:Number.isFinite(q.sourceTs)?q.sourceTs:null,
+    restoredFromHistory:!!q.restoredFromHistory};
+ }
+ try{
+   if(Object.keys(quotes).length){localStorage.setItem(FLOW_DAILY_STORE,JSON.stringify({v:1,day:today,savedAt:Date.now(),quotes}));S.sectorFlowStored=true}
+   else{localStorage.removeItem(FLOW_DAILY_STORE);S.sectorFlowStored=false}
+ }catch{S.sectorFlowStored=false}
+}
+function flowCacheRestore(){
+ const today=flowPruneToToday();
+ try{
+  const raw=JSON.parse(localStorage.getItem(FLOW_DAILY_STORE)||'null');
+  if(raw&&raw.day!==today){localStorage.removeItem(FLOW_DAILY_STORE)}
+  else if(raw?.v===1&&raw.quotes&&typeof raw.quotes==='object'){
+    for(const [code,q] of Object.entries(raw.quotes)){
+      if(!/^BK\d+$/.test(code)||q?.sourceDay!==today||!Number.isFinite(q.net)||Math.abs(q.net)>1e14)continue;
+      S.sectorFlow[code]={net:q.net,pct:Number.isFinite(q.pct)?q.pct:null,
+       ratio:Number.isFinite(q.ratio)?q.ratio:null,sourceDay:today,sourceAt:q.sourceAt||null,
+       at:q.at||null,sourceTs:Number.isFinite(q.sourceTs)?q.sourceTs:null,
+       restoredFromHistory:!!q.restoredFromHistory};
+    }
+    S.sectorFlowStored=Object.keys(S.sectorFlow).length>0;
+    S.sectorFlowFetchedAt=Number.isFinite(raw.savedAt)?Math.min(Date.now(),raw.savedAt):0;
+  }
+ }catch{}
+ // 兼容已在旧V42存下的资金曲线：历史点只会在源端日期确认为当天时被写入。
+ // 可从今日最近一个有效采样点恢复净额，不推测源端更新时间，也不跨天恢复。
+ let migrated=false;
+ for(const [code,points] of Object.entries(S.sectorFlowHistory||{})){
+   if(S.sectorFlow[code]||!/^BK\d+$/.test(code)||!Array.isArray(points))continue;
+   const last=points.filter(x=>x?.d===today&&Number.isFinite(x.v)&&Number.isFinite(x.t)&&x.t<=Date.now()+60000).at(-1);
+   if(!last)continue;
+   S.sectorFlow[code]={net:last.v,pct:null,ratio:null,sourceDay:today,sourceAt:null,
+     at:beijingClock(new Date(last.t)).time,sourceTs:null,restoredFromHistory:true};
+   migrated=true;
+ }
+ if(Object.keys(S.sectorFlow).length){
+   S.sectorFlowStatus='本地已保存';
+   if(migrated)flowCacheSave();
+ }
+}
+
 function sectorCodeFor(item){const m=String(item?.s||'').match(/^90\.(BK\d+)$/);return m?m[1]:null}
 // 资金方向是有符号的板块主力资金当个交易日累计净额；不是较昨天的增量。
 // 只按资金源明确报告的最新交易日筛选，缺失源日期不猜测、不归类。
 function flowReferenceDay(){
- const days=Object.values(S.sectorFlow||{}).filter(v=>v&&Number.isFinite(v.net)&&/^\d{4}-\d{2}-\d{2}$/.test(v.sourceDay||'')).map(v=>v.sourceDay);
+ flowPruneToToday();const days=Object.values(S.sectorFlow||{}).filter(v=>v&&Number.isFinite(v.net)&&/^\d{4}-\d{2}-\d{2}$/.test(v.sourceDay||'')).map(v=>v.sourceDay);
  return days.length?days.sort().at(-1):null;
 }
 function flowMatchesItem(item,day){
- if(S.flowDirection==='all')return true;
+ flowPruneToToday();if(S.flowDirection==='all')return true;
  if(!day)return false;
  const code=sectorCodeFor(item),q=code?S.sectorFlow[code]:null;
  return !!(q&&q.sourceDay===day&&Number.isFinite(q.net)&&(S.flowDirection==='in'?q.net>0:q.net<0));
@@ -1480,9 +1543,38 @@ function safeNum(v){if(v==null||v===''||v==='-')return null;const x=Number(v);re
 function flowYuan(n){if(n==null)return '—';const a=Math.abs(n),prefix=n>0?'+':n<0?'−':'';return prefix+(a>=1e8?(a/1e8).toFixed(2)+'亿':a>=1e4?(a/1e4).toFixed(1)+'万':a.toFixed(0)+'元')}
 function flowPct(n){return n==null?'—':(n>0?'+':'')+n.toFixed(2)+'%'}
 function sectorPriceChange(item){const m=S.market[item?.s],arr=m?.series||[];if(arr.length<2)return null;const a=arr[arr.length-1],b=arr[arr.length-2];return a?.c>0&&b?.c>0?((a.c/b.c-1)*100):null}
-function flowHistoryRestore(){try{const d=JSON.parse(localStorage.getItem(FLOW_STORE)||'{}');const today=beijingClock().day;for(const [c,arr] of Object.entries(d)){if(/^BK\d+$/.test(c)&&Array.isArray(arr))S.sectorFlowHistory[c]=arr.filter(x=>x?.d===today&&Number.isFinite(x?.v)&&Number.isFinite(x?.t)).slice(-50)}}catch{}}
-function flowHistorySave(){try{localStorage.setItem(FLOW_STORE,JSON.stringify(S.sectorFlowHistory))}catch{}}
-function flowHistoryRecord(code,n,day){const prev=S.sectorFlowHistory[code]||[],now=Date.now();const points=prev.filter(x=>x?.d===day&&Number.isFinite(x?.v)&&Number.isFinite(x?.t));const last=points[points.length-1];if(last&&now-last.t<60000)return;if(last&&last.v===n&&now-last.t<3*60000)return;points.push({d:day,t:now,v:n});S.sectorFlowHistory[code]=points.slice(-50)}
+function flowHistoryRestore(){
+ flowPruneToToday();try{const d=JSON.parse(localStorage.getItem(FLOW_STORE)||'{}');const today=beijingClock().day;
+  S.sectorFlowHistory={};for(const [c,arr] of Object.entries(d)){
+   if(/^BK\d+$/.test(c)&&Array.isArray(arr)){
+    const valid=arr.filter(x=>x?.d===today&&Number.isFinite(x?.v)&&Number.isFinite(x?.t)).slice(-50);
+    if(valid.length)S.sectorFlowHistory[c]=valid;
+   }
+  }
+  flowHistorySave();
+ }catch{}
+}
+function flowHistorySave(){
+ const today=flowPruneToToday(),pruned={};
+ for(const [code,arr] of Object.entries(S.sectorFlowHistory||{})){
+   if(!/^BK\d+$/.test(code)||!Array.isArray(arr))continue;
+   const valid=arr.filter(x=>x?.d===today&&Number.isFinite(x.v)&&Number.isFinite(x.t)).slice(-50);
+   if(valid.length)pruned[code]=valid;
+ }
+ S.sectorFlowHistory=pruned;
+ try{localStorage.setItem(FLOW_STORE,JSON.stringify(pruned))}catch{}
+}
+function flowHistoryRecord(code,n,day){
+ const today=flowPruneToToday();if(day!==today||!/^BK\d+$/.test(code)||!Number.isFinite(n))return;
+ const prev=S.sectorFlowHistory[code]||[],now=Date.now();
+ const points=prev.filter(x=>x?.d===day&&Number.isFinite(x?.v)&&Number.isFinite(x?.t));
+ const last=points.at(-1);
+ // 已经记录过同样的累计值，不重复增加采样点，更不会累加净流入金额。
+ if(last&&last.v===n)return;
+ if(last&&now-last.t<20000){points[points.length-1]={d:day,t:now,v:n}}
+ else points.push({d:day,t:now,v:n});
+ S.sectorFlowHistory[code]=points.slice(-50);
+}
 function polylineSVG(values,isFund,color){
  if(!values||values.length<2)return '';
  const w=180,h=38,pad=3,lo=Math.min(...values),hi=Math.max(...values),scale=hi===lo?1:hi-lo;
@@ -1504,11 +1596,11 @@ function flowAsOf(quote){
  return {label:`${shortDate} ${phase} · 截至${originTime}`,cls:'',detail:`数据日期${day}；时间${originTime}（${quote.sourceAt?'接口源端':'本网页抓取'}时间）；从该交易日开盘起累计，不是较昨天增减`};
 }
 function sectorFlowCell(item){
- const code=sectorCodeFor(item),m=S.market[item?.s],quote=code?S.sectorFlow[code]:null;
+ flowPruneToToday();const code=sectorCodeFor(item),m=S.market[item?.s],quote=code?S.sectorFlow[code]:null;
  const flow=quote?.net??null,pct=(quote?.pct??sectorPriceChange(item));
  const price=(m?.series||[]).slice(-10).map(x=>safeNum(x.c)).filter(x=>x!=null&&x>0);
- const history=(code?S.sectorFlowHistory[code]:[])||[];
  const today=beijingClock().day;
+ const history=((code?S.sectorFlowHistory[code]:[])||[]).filter(x=>x.d===today);
  const fundCurve=flow!=null&&quote?.sourceDay===today&&history.length>=2;
  const values=fundCurve?history.map(x=>x.v):price;
  const sign=flow==null?'neutral':flow>0?'in':flow<0?'out':'neutral';
@@ -1516,7 +1608,7 @@ function sectorFlowCell(item){
  const spark=polylineSVG(values,fundCurve,lineColor);
  const cap=fundCurve?'当日资金变化曲线':'近10日价格趋势';
  const asof=flowAsOf(quote);
- const status=!code?'非行业板块，无同口径资金流':flow!=null?'取得东方财富板块主力资金净额':S.sectorFlowStatus==='接口不可用'?'资金接口不可用':S.sectorFlowStatus==='未开启'?'资金查询尚未开启':'本轮未获得此板块资金';
+ const status=!code?'非行业板块，无同口径资金流':flow!=null?(quote?.restoredFromHistory?'从本浏览器今日已存资金快照恢复':'取得或保留当天已核验的主力资金净额'):S.sectorFlowStatus==='未开启'?'资金查询尚未开启':'资金待更新：未获得该板块当日已核验净额';
  const fullName=flow==null?(code?'资金暂无数据':'资金不适用'):flow>0?'当日净流入':flow<0?'当日净流出':'当日资金净额';
  const amount=flow==null?'':flow===0?'0元':flowYuan(Math.abs(flow)).replace(/^\+/, '');
  const tooltip=`${item.n}\n${status}\n${fullName}${flow==null?'':`：${amount}`}\n主力资金有符号净额：${flowYuan(flow)}\n${asof.detail}\n板块涨跌幅：${flowPct(pct)}（相比上一交易日收盘价）\n折线：${fundCurve?'今天本网页'+history.length+'次资金累计快照的变化':'近10个交易日价格趋势，不是资金曲线'}\n${m?.is_stale?'行业日K包含历史缓存':''}`;
@@ -1535,16 +1627,18 @@ function sectorFlowCell(item){
  <div class="flow-v33-chart"><span>${lineLabel}</span>${spark||'<span class="flow-no-curve">—</span>'}</div></td>`;
 }
 function flowStatusText(){
- if(S.sectorFlowStatus==='已更新'||S.sectorFlowStatus==='部分数据'){
-   const clock=beijingClock(new Date(S.sectorFlowFetchedAt));
-   const values=Object.values(S.sectorFlow).map(x=>x.net).filter(v=>v!=null);
-   const inward=values.filter(v=>v>0).length,outward=values.filter(v=>v<0).length,neutral=values.filter(v=>v===0).length;
-   const partial=S.sectorFlowStatus==='部分数据'?'；部分排序接口失败，请稍后重试':'';
-   return `已获取${values.length}个板块的交易日累计主力资金数据：当日净流入${inward}个 / 当日净流出${outward}个${neutral?' / 净额为零'+neutral+'个':''}${partial}。本网页北京时间${clock.day} ${clock.time.slice(0,5)}抓取；每行标记所属交易日，资金净额不是与昨天之差。`;
- }
- return S.sectorFlowStatus==='接口不可用'?'资金流接口暂时无法访问，仅可显示板块涨跌幅与近10日价格趋势（不是资金流）':'资金查询尚未成功，资金额为空则不虚构；非资金列按已取日K展示';
+ flowPruneToToday();const clock=beijingClock();
+ const values=Object.values(S.sectorFlow).filter(q=>q?.sourceDay===clock.day&&Number.isFinite(q.net)).map(q=>q.net);
+ const inward=values.filter(v=>v>0).length,outward=values.filter(v=>v<0).length,neutral=values.filter(v=>v===0).length;
+ const amount=values.length?`今日已保存${values.length}个板块：净流入${inward}个 / 净流出${outward}个${neutral?' / 净额为零'+neutral+'个':''}`:'今日暂无可核验主力资金';
+ const storage=S.sectorFlowStored?'；仅存于当前浏览器':'；本地存储不可用时仅保留在当前页面';
+ if(S.sectorFlowStatus==='已更新'||S.sectorFlowStatus==='部分数据')
+   return `${amount}；本轮成功更新${S.sectorFlowLastBatchNew||0}个；${S.sectorFlowStatus==='部分数据'?'部分接口未返回数据，未取得的仍保留今日旧值；':''}同一交易日覆盖最新累计值，不重复相加${storage}。`;
+ if(S.sectorFlowStatus==='查询中')return `${amount}；正在检查资金接口，已存的当天结果不会清空。`;
+ if(S.sectorFlowStatus==='本地已保存')return `${amount}；已从本浏览器恢复，资金待更新；更新失败也不会清空${storage}。`;
+ return `${amount}；资金待更新（接口失败或尚未返回有效当天数据），保留已有同日记录、不跨天沿用${storage}。`;
 }
-function updateFlowStatusUI(){const v=$('flowStatus');if(v)v.textContent=flowStatusText()}
+function updateFlowStatusUI(){flowPruneToToday();const v=$('flowStatus');if(v)v.textContent=flowStatusText()}
 let flowInflight=null;
 function requestSectorFlowPage(order,page){
  return new Promise(resolve=>{
@@ -1569,37 +1663,53 @@ function requestSectorFlowPage(order,page){
 function flowGoodNum(v){const n=safeNum(v);return n!=null&&n!==1&&Math.abs(n)<1e14?n:null}
 function loadSectorFlow(force=false){
  if(!S.showSectorFlow)return Promise.resolve(false);
+ flowPruneToToday();
  if(flowInflight)return flowInflight;
  if(!force&&S.sectorFlowFetchedAt&&Date.now()-S.sectorFlowFetchedAt<180000)return Promise.resolve(true);
  S.sectorFlowBusy=true;S.sectorFlowStatus='查询中';updateFlowStatusUI();
  flowInflight=(async()=>{
    try{
      const first=await Promise.all([requestSectorFlowPage(1,1),requestSectorFlowPage(0,1)]);
-     let batches=first.slice(),map=new Map();
-     const addBatch=(r)=>{if(!r.ok)return;for(const x of r.rows){const code=String(x?.f12||'');if(!/^BK\d+$/.test(code))continue;const prev=map.get(code);if(!prev||flowGoodNum(prev.f62)==null&&flowGoodNum(x.f62)!=null)map.set(code,x)}};
+     const map=new Map();
+     const addBatch=r=>{if(!r.ok)return;for(const x of r.rows){
+        const code=String(x?.f12||'');if(!/^BK\d+$/.test(code))continue;
+        const prev=map.get(code);
+        if(!prev||(flowGoodNum(prev.f62)==null&&flowGoodNum(x.f62)!=null))map.set(code,x);
+     }};
      first.forEach(addBatch);
      const total=Math.max(...first.map(x=>x.total),0);
-     // Some API environments cap pz even if a larger number is requested.
-     // Continue through subsequent pages when the total exceeds the merged result.
      for(let page=2;page<=5&&total>map.size;page++){
        const next=await Promise.all([requestSectorFlowPage(1,page),requestSectorFlowPage(0,page)]);
-       next.forEach(addBatch);batches.push(...next);
+       next.forEach(addBatch);
        if(next.every(x=>!x.ok||!x.rows.length))break;
      }
      if(!map.size)throw new Error('资金接口未返回板块数据');
-     const clock=beijingClock(),today=clock.day;const fresh={};
+     const clock=beijingClock(),today=flowPruneToToday();let received=0;
      for(const [code,row] of map){
-       const net=flowGoodNum(row.f62);const pct=safeNum(row.f3);const ratio=safeNum(row.f184);
-       const sourceTs=safeNum(row.f124);const srcClock=sourceTs&&sourceTs>1e9?beijingClock(new Date(sourceTs*1000)):null;
-       const sourceDay=srcClock?.day||null,sourceAt=srcClock?.time||null;
-       fresh[code]={net,pct:pct!=null&&Math.abs(pct)<100?pct:null,ratio,at:clock.time,day:today,sourceDay,sourceAt};
-       if(net!=null&&!clock.weekend&&sourceDay===today)flowHistoryRecord(code,net,today);
+       const net=flowGoodNum(row.f62),pct=safeNum(row.f3),ratio=safeNum(row.f184);
+       const sourceTs=safeNum(row.f124);
+       const srcClock=sourceTs&&sourceTs>1e9&&sourceTs<5e9?beijingClock(new Date(sourceTs*1000)):null;
+       // 绝不把昨日、未知日期或无净额的行写入今日资金缓存。
+       if(srcClock?.day!==today||net==null)continue;
+       const old=S.sectorFlow[code];
+       // 同日数据源偶尔回退旧快照，不能覆盖已经保存的较新源端时刻。
+       if(old?.sourceDay===today&&old.sourceAt&&srcClock.time<old.sourceAt)continue;
+       const updated={net,pct:pct!=null&&Math.abs(pct)<100?pct:old?.pct??null,
+          ratio:ratio??old?.ratio??null,at:clock.time,sourceDay:today,
+          sourceAt:srcClock.time,sourceTs,restoredFromHistory:false};
+       S.sectorFlow[code]=updated;received++;
+       if(!clock.weekend)flowHistoryRecord(code,net,today);
      }
-     S.sectorFlow=fresh;S.sectorFlowFetchedAt=Date.now();flowHistorySave();
+     if(!received)throw new Error('没有取到可核验的当日主力资金净额');
+     S.sectorFlowFetchedAt=Date.now();S.sectorFlowLastBatchNew=received;
+     flowHistorySave();flowCacheSave();
      S.sectorFlowStatus=first.every(x=>x.ok)?'已更新':'部分数据';
      return true;
-   }catch(e){S.sectorFlowStatus='接口不可用';S.sectorFlow={};return false}
-   finally{S.sectorFlowBusy=false;flowInflight=null;updateFlowStatusUI();if(!etfQueryCode())render()}
+   }catch(e){
+     // 网络失败只改状态，不能清除 S.sectorFlow，也不能删除浏览器同日缓存。
+     S.sectorFlowStatus='资金待更新';S.sectorFlowLastBatchNew=0;
+     return false;
+   }finally{S.sectorFlowBusy=false;flowInflight=null;updateFlowStatusUI();if(!etfQueryCode())render()}
  })();
  return flowInflight;
 }
@@ -3209,7 +3319,11 @@ function start(){try{const stored=Number(localStorage.getItem('yaoyao_rank_days_
  try{const v=localStorage.getItem('yaoyao_show_ma_columns_v1');if(v!==null)S.showEtfMa=v==='1'}catch{}
  try{const v=localStorage.getItem('yaoyao_catalog_mode_v17');if(v==='yangjibao')S.viewMode=v}catch{}
  S.catalog=loadCatalogFromEmbedded();updateCatalogSwitchUI();let groups=[...new Set(S.catalog.map(x=>x.g))];$('group').innerHTML='<option value="">全部分类</option>'+groups.map(g=>`<option value="${esc(g)}">${esc(g)}</option>`).join('');
- restoreCache();restoreEtfCache();flowHistoryRestore();
+ restoreCache();restoreEtfCache();flowHistoryRestore();flowCacheRestore();
+ // 页面整夜不关闭时也要跨北京时间日期清理已显示的昨日资金，不能一直停留旧数据。
+ setInterval(()=>{const prior=S.sectorFlowDay;const day=flowPruneToToday();
+   if(prior&&prior!==day){render();updateFlowStatusUI()}
+ },60000);
  // V34 默认开启板块资金、日内状态、未来2日判断、MA5/20。
  // 升级时执行一次，之后手动取消勾选会记忆，避免每次刷新重置。
  try{
