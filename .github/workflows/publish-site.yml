@@ -21,7 +21,7 @@ jobs:
       - name: 保护已有ETF行情（恢复当前Pages已发布的全部共享数据）
         shell: bash
         env:
-          MIN_HISTORY_COUNT: '1249'
+          MIN_HISTORY_COUNT: '1388'
         run: |
           python - <<'PY'
           import json, os, re, time
@@ -59,6 +59,22 @@ jobs:
           except Exception as e:
               print('Optional index cache not retrieved; live ETF data remains protected:', str(e)[:120])
           print('SAFE: preserved %d ETF histories in %d chunks' % (len(seen),count))
+          PY
+      - name: 保留已发布的资金快照（可选，不影响ETF备份）
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,os,time,urllib.request
+          from pathlib import Path
+          owner,repo=os.environ['GITHUB_REPOSITORY'].split('/',1)
+          url=f'https://{owner}.github.io/{repo}/data/sector-flow.json?t={int(time.time())}'
+          try:
+              with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'}),timeout=20) as r: raw=r.read()
+              data=json.loads(raw)
+              if data.get('schema')=='yy-flow-v1':
+                  target=Path('data/sector-flow.json');target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
+                  print('Fund flow snapshot preserved (source date not rewritten)')
+          except Exception as exc:print('Optional fund snapshot not available:',str(exc)[:130])
           PY
       - name: 保存改版前的行情备份（可在Actions下载）
         uses: actions/upload-artifact@v4
