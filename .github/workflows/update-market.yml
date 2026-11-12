@@ -2,23 +2,20 @@ name: 每日 ETF 共享行情更新
 on:
   workflow_dispatch:
   schedule:
-    # 北京时间工作日收盘后17:27~23:27，分批更新，避免每次上千条请求。
-    # UTC 是北京时间减去8小时。
+    # 北京时间工作日17:27~23:27每小时一轮，UTC=北京时间-8小时
     - cron: '27 9-15 * * 1-5'
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 concurrency:
   group: yaoyao-pages-data
   cancel-in-progress: false
 jobs:
-  refresh:
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 45
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,14 +30,62 @@ jobs:
         env:
           ETF_BATCH_LIMIT: '160'
         run: python scripts/update_market.py
+      - name: Guard the already-collected ETF history
+        shell: bash
+        env:
+          MIN_HISTORY_COUNT: '1249'
+        run: |
+          python - <<'PY'
+          import os,json
+          from pathlib import Path
+          d=Path('data'); m=json.loads((d/'manifest.json').read_text(encoding='utf-8'))
+          assert m.get('schema')=='yy-etf-v1', 'Unexpected snapshot version'
+          total={}
+          for name in m['chunks']:
+              rows=json.loads((d/name).read_text(encoding='utf-8'))
+              assert not (set(total)&set(rows)), 'Duplicate ETF code'
+              total.update(rows)
+          actual=len(total)
+          assert actual==int(m['history_count']), 'Manifest and chunks differ'
+          assert actual>=int(os.environ['MIN_HISTORY_COUNT']), 'ETF histories decreased: abort publication'
+          print('VERIFIED: %d ETF histories retained; %d rankable' % (actual,m['rankable_count']))
+          PY
+      - name: Save an independent ETF snapshot backup (90 days)
+        uses: actions/upload-artifact@v4
+        with:
+          name: etf-snapshot-${{ github.run_id }}
+          path: data/
+          retention-days: 90
+          if-no-files-found: error
       - name: Disable Jekyll
         run: touch .nojekyll
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload snapshot and web app
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: '.'
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.primary.outputs.page_url || steps.retry.outputs.page_url }}
+    steps:
       - name: Publish to GitHub Pages
-        id: deployment
+        id: primary
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+      - name: Wait for artifact availability before retry
+        if: steps.primary.outcome == 'failure'
+        run: sleep 35
+      - name: Retry publishing once
+        id: retry
+        if: steps.primary.outcome == 'failure'
         uses: actions/deploy-pages@v4
