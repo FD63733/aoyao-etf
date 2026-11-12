@@ -30,10 +30,14 @@ jobs:
         env:
           ETF_BATCH_LIMIT: '160'
         run: python scripts/update_market.py
+      - name: Collect Eastmoney and THS sector funds (optional; never breaks ETF build)
+        shell: bash
+        run: |
+          python scripts/update_fund_flows.py || echo "Fund data unavailable; ETF snapshot stays intact."
       - name: Guard the already-collected ETF history
         shell: bash
         env:
-          MIN_HISTORY_COUNT: '1249'
+          MIN_HISTORY_COUNT: '1388'
         run: |
           python - <<'PY'
           import os,json
