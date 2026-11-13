@@ -1304,6 +1304,7 @@ header .yy-head-right small{position:static;font-size:12px;font-weight:400;color
 <details class="yy-release" id="yyReleaseNotes"><summary title="鼠标悬停或点击，查看本版优化内容">已优化内容 ▾</summary>
 <div class="yy-release-pop" role="region" aria-label="版本优化记录">
 <h3>版本优化记录</h3>
+<div class="yy-release-entry"><div class="yy-release-date">2026-11-13 · V42今日盘中缓存修复</div><h4>1. 当日行情本机保存</h4><p>核验为当天的板块报价增量合并到浏览器，本日再次打开先恢复已获取结果；默认5分钟内不重复请求，点击「刷新今日报价」可手动强制获取。</p><h4>2. 历史日K刷新节流</h4><p>普通浏览器5分钟内重复打开时优先复用已保存的指数历史K，不必每次重新扫描；点击「更新数据」仍会立即强制刷新。</p><h4>3. 失败不丢数据 · 跨天自动失效</h4><p>当天新增报价覆盖旧值，接口失败保留当天已有报价并标注缓存和时间；进入新交易日不沿用昨天的盘中报价。不同浏览器无法自动共享本地快照。</p><h4>4. 普通模式显示优化</h4><p>当日数据不足明确提示「今日榜尚未形成」与重试入口，区分昨日参考榜；如普通模式仍无法请求，请检查浏览器扩展、代理和权限。</p></div>
 <div class="yy-release-entry"><div class="yy-release-date">2026-11-13 · V42当日榜日期修复</div><h4>1. 今日盘中榜优先</h4><p>交易日优先使用核对为今天的板块指数盘中报价或今日公开日K，真实同日覆盖不足时不把昨天排名叫“今日”。</p><h4>2. 上一交易日单独查看</h4><p>可以切换查看昨日收盘榜，但明显标注“上一交易日”，不混为当日；实时报价只用于盘中涨幅排序，不冒充收盘确认RSI或均线。</p></div>
 <div class="yy-release-entry"><div class="yy-release-date">2026-11-12 · V42资金多源增强</div><h4>1. 资金接口多源备用</h4><p>东方财富直连主备通道、GitHub共享资金快照；同花顺只作独立参考，不直接混用金额。</p><h4>2. 资金获取结果可视化</h4><p>新增资金状态栏，显示今日有效板块数、来源分布与接口状态。没有数据会明确显示“资金待更新”。</p></div>
 <div class="yy-release-entry"><div class="yy-release-date">2026-11-12 · V42资金缓存改进</div><h4>1. 同日增量合并</h4><p>更新成功按板块覆盖最新累计净额，重复刷新不把金额相加；获取失败保留同日已有值。</p><h4>2. 本地恢复及跨日保护</h4><p>关页后同一浏览器可恢复当日资金，跨日失效；本地缓存不自动同步到家人手机。</p></div>
@@ -1487,7 +1488,7 @@ CPO,021933,富国中证通信设备主题ETF联接A"></textarea>
 <script type="application/json" id="verifiedEtfPeers">{"游戏":[{"code":"159869","name":"游戏ETF华夏","track":"中证动漫游戏指数","relation":"同跟踪指数：与516010比较","type":"t1"},{"code":"516620","name":"影视ETF国泰","track":"中证影视主题指数","relation":"仅相邻主题：不是游戏ETF的同指数替代","type":"related"}],"数字媒体":[{"code":"516620","name":"影视ETF国泰","track":"中证影视主题指数","relation":"仅相关影视主题：与传媒行业宽口径指数不同","type":"related"}]}</script>
 <script>
 'use strict';
-const S={rankDays:15,viewMode:'yaoyao',pendingCatalogRefresh:false,catalog:[],market:{},mode:'group-status',group:'',status:'',q:'',days:15,sortDay:null,sortAsc:false,flowChangeSort:'all',loading:false,lastUpdated:'',serverMode:false,autoMinutes:5,breakoutWindow:10,nextRun:0,changed:false,dates:[],failedLast:0,showT0:true,showJudge:true,rankSort:'default',etfMarket:{},etfBusy:false,etfPendingAgain:false,etfProgress:'',focusETF:'游戏',focusEtfCode:null,etfMetricCache:{},showEtfMa:true,showSectorFlow:true,showDayStatus:true,showTwoDayOutlook:true,showMa5Ma20Analysis:true,sectorFlow:{},sectorFlowHistory:{},sectorFlowStatus:'未开启',sectorFlowBusy:false,sectorFlowFetchedAt:0,sectorFlowDay:"",sectorFlowLastBatchNew:0,sectorFlowStored:false,flowDirection:'all',etfRankMode:'daily',rankCompareVisible:false,expandedEtf:null,expandedCompareCode:null,dailyShowPrevious:false,dailyLive:{day:'',quotes:{},lastAttempt:0,loading:false,failed:0}};
+const S={rankDays:15,viewMode:'yaoyao',pendingCatalogRefresh:false,catalog:[],market:{},mode:'group-status',group:'',status:'',q:'',days:15,sortDay:null,sortAsc:false,flowChangeSort:'all',loading:false,lastUpdated:'',serverMode:false,autoMinutes:5,breakoutWindow:10,nextRun:0,changed:false,dates:[],failedLast:0,showT0:true,showJudge:true,rankSort:'default',etfMarket:{},etfBusy:false,etfPendingAgain:false,etfProgress:'',focusETF:'游戏',focusEtfCode:null,etfMetricCache:{},showEtfMa:true,showSectorFlow:true,showDayStatus:true,showTwoDayOutlook:true,showMa5Ma20Analysis:true,sectorFlow:{},sectorFlowHistory:{},sectorFlowStatus:'未开启',sectorFlowBusy:false,sectorFlowFetchedAt:0,sectorFlowDay:"",sectorFlowLastBatchNew:0,sectorFlowStored:false,flowDirection:'all',etfRankMode:'daily',rankCompareVisible:false,expandedEtf:null,expandedCompareCode:null,dailyShowPrevious:false,dailyLive:{day:'',quotes:{},lastAttempt:0,loading:false,failed:0,loadedFromDisk:0}};
 const $=id=>document.getElementById(id);
 function catalogSourceTag(item){
  if(item.g==='宽基'||(S.viewMode!=='yangjibao'&&!item.isSupplemental))return '';
@@ -2275,13 +2276,70 @@ function yyFetchBoardLiveQuote(secid,timeout=5600){return new Promise((resolve,r
  for(const [k,v] of Object.entries({secid,cb,fields:'f43,f57,f58,f60,f86',fltt:'2',ut:'fa5fd1943c7b386f172d6893dbfba10b',_:String(Date.now())}))u.searchParams.set(k,v);
  script.src=u.toString();document.head.appendChild(script);
 })}
+/* V42 今日盘中榜本地快照：与ETF历史日K及资金缓存彻底分开。
+   只保存当天经过指数代码/日期双重核验的报价；同日增量覆盖，不累加；跨北京时间日期清理。
+   页面刷新先恢复今日快照，5分钟内不再无意义重抓；从未获取过报价的设备仍须联网采集。 */
+const YY_DAILY_BOARD_STORE='yaoyao_v42_verified_intraday_board_v1';
+const YY_DAILY_BOARD_MIN_RETRY_MS=5*60*1000;
+function yyBoardCleanQuote(id,raw,today,now=Date.now()){
+ if(!raw||typeof raw!=='object'||raw.secid!==id||raw.day!==today||raw.source!=='东方财富板块指数实时快照')return null;
+ const stampMs=Date.parse(raw.fetchedAt||'');
+ if(!Number.isFinite(stampMs)||stampMs>now+120000||beijingClock(new Date(stampMs)).day!==today)return null;
+ const pct=Number(raw.pct);
+ if(!Number.isFinite(pct)||Math.abs(pct)>=35)return null;
+ const stamp=typeof raw.stamp==='string'&&/^\d{4}$/.test(raw.stamp)?raw.stamp:'';
+ return {day:today,pct:+pct.toFixed(4),fetchedAt:new Date(stampMs).toISOString(),stamp,secid:id,source:raw.source};
+}
+function yyBoardResetWrongDay(){
+ const store=S.dailyLive,today=beijingClock().day;
+ if(store.day===today)return;
+ store.day=today;store.quotes={};store.lastAttempt=0;store.failed=0;store.loadedFromDisk=0;
+ try{const saved=JSON.parse(localStorage.getItem(YY_DAILY_BOARD_STORE)||'null');
+   if(saved&&saved.day!==today)localStorage.removeItem(YY_DAILY_BOARD_STORE);
+ }catch{try{localStorage.removeItem(YY_DAILY_BOARD_STORE)}catch{}}
+}
+function yyBoardRestoreToday(){
+ yyBoardResetWrongDay();const store=S.dailyLive,today=beijingClock().day,allowed=new Set(dailyBoardUniverse().map(item=>item.s));
+ try{
+  const saved=JSON.parse(localStorage.getItem(YY_DAILY_BOARD_STORE)||'null');
+  if(!saved||saved.day!==today||saved.version!==1)return 0;
+  const found={};const now=Date.now();
+  for(const [id,raw] of Object.entries(saved.quotes||{})){
+   if(!allowed.has(id))continue;
+   const q=yyBoardCleanQuote(id,raw,today,now);
+   if(q)found[id]={...q,isCached:true};
+  }
+  store.quotes={...store.quotes,...found};
+  store.loadedFromDisk=Object.keys(found).length;
+  const at=Number(saved.lastAttempt||0);
+  if(Number.isFinite(at)&&at>0&&at<=now&&now-at<YY_DAILY_BOARD_MIN_RETRY_MS)store.lastAttempt=at;
+  return store.loadedFromDisk;
+ }catch{return 0}
+}
+function yyBoardSaveToday(){
+ const store=S.dailyLive,today=beijingClock().day;
+ if(store.day!==today)return;
+ try{
+  const quotes={},allowed=new Set(dailyBoardUniverse().map(item=>item.s)),now=Date.now();
+  for(const [id,raw] of Object.entries(store.quotes||{})){
+   if(!allowed.has(id))continue;
+   const clean=yyBoardCleanQuote(id,raw,today,now);
+   if(clean)quotes[id]=clean;
+  }
+  localStorage.setItem(YY_DAILY_BOARD_STORE,JSON.stringify({version:1,day:today,lastAttempt:store.lastAttempt,savedAt:now,quotes}));
+ }catch{/* 禁用存储或容量不足时继续使用内存数据，不影响行情采集 */}
+}
+function yyBoardQuoteTime(q){
+ const ms=Date.parse(q?.fetchedAt||'');
+ return Number.isFinite(ms)?beijingClock(new Date(ms)).time.slice(0,5):'—';
+}
 async function loadDailyBoardLiveQuotes(force=false){
  const clock=beijingClock(),store=S.dailyLive;
- // 交易日前的收盘榜独立显示；不在周末、夜间或假期盲目制作今日盘中榜。
+ yyBoardResetWrongDay();
+ // 非交易时段不会伪造新的今日盘中报价；已有当日快照可继续显示但需注明采集时间。
  if(clock.weekend||clock.minute<570||clock.minute>1000||S.viewMode!=='yaoyao')return;
- if(store.loading||(!force&&store.day===clock.day&&Date.now()-store.lastAttempt<150000))return;
- if(store.day!==clock.day){store.day=clock.day;store.quotes={}}
- store.loading=true;store.lastAttempt=Date.now();store.failed=0;
+ if(store.loading||(!force&&Date.now()-store.lastAttempt<YY_DAILY_BOARD_MIN_RETRY_MS))return;
+ store.loading=true;store.lastAttempt=Date.now();store.failed=0;yyBoardSaveToday();
  const ids=[...new Set(dailyBoardUniverse().map(x=>x.s).filter(Boolean))];
  // 此处只请求板块指数本身，逐批限制并发；遇到连续无数据就熔断，避免影响主站行情。
  let miss=0;
@@ -2290,13 +2348,15 @@ async function loadDailyBoardLiveQuotes(force=false){
     try{return {id,value:await yyFetchBoardLiveQuote(id)}}catch{return {id,value:null}}
   }));
   let n=0;
-  for(const r of group){if(r.value){store.quotes[r.id]=r.value;n++}else store.failed++}
+  for(const r of group){if(r.value){store.quotes[r.id]={...r.value,isCached:false};n++}else store.failed++}
+  // 成功项同日覆盖、失败项保持原值；即使本轮全失败也不会清空当天数据。
+  yyBoardSaveToday();
   miss=n===0?miss+1:0;
   if(S.etfRankMode==='daily')renderDailyBoardRanking();
   if(miss>=3)break;
   await sleep(180);
  }
- store.loading=false;if(S.etfRankMode==='daily')renderDailyBoardRanking();
+ store.loading=false;yyBoardSaveToday();if(S.etfRankMode==='daily')renderDailyBoardRanking();
 }
 function dailyBoardRankings(){
  const universe=dailyBoardUniverse(),clock=beijingClock(),today=clock.day;
@@ -2322,7 +2382,7 @@ function dailyBoardRankings(){
  // 同日的历史日K及“明确标记今日日期”的板块实时行情可以合并；同一指数实时快照优先。
  const todayRows=records.flatMap(r=>{
   const quote=S.dailyLive.day===today?S.dailyLive.quotes[r.item.s]:null;
-  if(quote?.day===today)return [{item:r.item,entry:r.entry,change:quote.pct,isLive:true,stamp:quote.stamp}];
+  if(quote?.day===today)return [{item:r.item,entry:r.entry,change:quote.pct,isLive:true,isCached:!!quote.isCached,quoteTime:yyBoardQuoteTime(quote),stamp:quote.stamp}];
   const row=r.entry?.series?.find(x=>x.d===today);
   if(r.values.has(today)&&row?.c>0)return [{item:r.item,entry:r.entry,change:r.values.get(today),isLive:false}];
   return [];
@@ -2455,7 +2515,9 @@ function sectorIndexMALines(item,refDate){
  return {above5:ma5===null?null:current>ma5,above20:ma20===null?null:current>ma20,above60:ma60===null?null:current>ma60};
 }
 function renderDailyBoardRanking(){
- const result=dailyBoardRankings(),clock=beijingClock();
+ yyBoardResetWrongDay();const result=dailyBoardRankings(),clock=beijingClock();
+ const retry=(!clock.weekend&&clock.minute>=570&&clock.minute<=1000)
+  ?'<button type="button" class="board-day-switch" data-daily-retry="1" title="强制获取当日指数报价；已有同日数据不会被失败请求清空">刷新今日报价</button>':'';
  const toggle=result.mode==='previous'
   ?'<button type="button" class="board-day-switch" data-daily-prev="0">返回今日榜</button>'
   :result.mode==='pending'&&result.priorDay
@@ -2463,11 +2525,11 @@ function renderDailyBoardRanking(){
  let note='';
  if(result.mode==='today'){
   const confirmed=clock.minute>=935&&!result.hasLive;
-  note=`<div class="etf-rank-note"><b class="board-day-mode ${confirmed?'':'live'}">${confirmed?'今日板块涨幅排行':'今日盘中涨幅榜（待收盘）'} · ${esc(result.day)}</b> · <span class="board-day-note">仅按已取得的今日板块指数行情排名，覆盖${result.coverage}/${result.total}项。${result.hasLive?'包含已核对为今天的盘中报价；':''}盘中实时涨跌幅会变化，未收盘不视为RSI/均线最终信号。</span>${result.stale?' 部分历史日K使用缓存。':''}</div>`;
+  note=`<div class="etf-rank-note"><b class="board-day-mode ${confirmed?'':'live'}">${confirmed?'今日板块涨幅排行':'今日盘中涨幅榜（待收盘）'} · ${esc(result.day)}</b> · <span class="board-day-note">仅按已取得的今日板块指数行情排名，覆盖${result.coverage}/${result.total}项。${result.hasLive?'包含已核对为今天的盘中报价；':''}盘中实时涨跌幅会变化，未收盘不视为RSI/均线最终信号。</span>${result.stale?' 部分历史日K使用缓存。':''} ${S.dailyLive.loadedFromDisk?'本浏览器已恢复今日盘中缓存；':''}已取得的数据更新时间以卡片为准，自动刷新不代表每次都能获取新报价。${retry}</div>`;
  }else if(result.mode==='previous'){
   note=`<div class="etf-rank-note"><b class="board-day-mode old">上一交易日收盘榜 · ${esc(result.day)}</b> · 仅供历史参考，不代表${esc(clock.day)}今日涨幅。覆盖${result.coverage}/${result.total}项。${toggle}</div>`;
  }else{
-  note=`<div class="etf-rank-note"><b class="board-day-mode live">今日盘中榜 · ${esc(clock.day)}</b> · 今日已有${result.coverage}/${result.total}项有效板块报价，需至少${result.required}项相同交易日数据后才能可靠排名。${result.liveLoading?'正在继续核对今日实时报价。':'今日数据仍不足，暂不展示昨天的榜单。'}${toggle}</div>`;
+  note=`<div class="etf-rank-note"><b class="board-day-mode live">今日盘中榜 · ${esc(clock.day)}</b> · 今日已有${result.coverage}/${result.total}项有效板块报价，需至少${result.required}项相同交易日数据后才能可靠排名。${result.liveLoading?'正在继续核对今日实时报价。':'今日数据仍不足，暂不展示昨天的榜单。'}${S.dailyLive.failed?' 最近一轮有'+S.dailyLive.failed+'项请求失败，可能是浏览器扩展、代理、网络或行情接口限制。':''}${toggle}${retry}</div>`;
  }
  const cards=result.list.map(r=>{
   const statusClass=r.status==='突破'?'breakout':r.status==='走强'?'strong':r.status==='回调'?'pullback':'mixed';
@@ -2484,7 +2546,7 @@ function renderDailyBoardRanking(){
    <span class="etf-card-title-row"><span class="rank-badge ${r.rank<=3?'top':'mid'}">#${r.rank}</span><strong>${esc(r.item.n)}</strong></span>
    <span class="daily-board-side"><span class="daily-streak">${ageLabel}</span>${statusBadge}</span>
    ${maHint}
-   <span class="sub">${esc(r.item.g)} · ${esc(result.day)}${result.mode==='today'?' · 今日盘中':' · 上一交易日'}${r.isLive?' · 实时报价':r.entry?.is_stale?' · 缓存':''}</span>
+   <span class="sub">${esc(r.item.g)} · ${esc(result.day)}${result.mode==='today'?' · 今日盘中':' · 上一交易日'}${r.isLive?(r.isCached?' · 本机今日缓存 '+esc(r.quoteTime):' · 今日报价 '+esc(r.quoteTime)):r.entry?.is_stale?' · 缓存':''}</span>
    <span class="vals">${result.mode==='today'?'今日涨跌':'当日涨跌'} <b class="daily-gain ${gainClass}">${pctText(r.change)}</b>${periodMove}<span>RSI(14) ${r.rsi==null?'—':Number(r.rsi).toFixed(1)}</span></span>
    ${footer}
   </button>`;
@@ -3299,7 +3361,7 @@ async function jsonpQuote(id){
 }
 
 async function requestBatch(batch){return Promise.all(batch.map(async id=>{try{return await jsonpQuote(id)}catch(e){return{secid:id,error:e.message,series:[],is_stale:true}}}))}
-async function refresh(force=false){if(S.loading)return;S.loading=true;render();notice('');if(S.showSectorFlow)loadSectorFlow(force);
+async function refresh(force=false){if(S.loading)return;S.loading=true;try{localStorage.setItem('yaoyao_v42_index_attempt_v1',JSON.stringify({day:beijingClock().day,at:Date.now()}))}catch{};render();notice('');if(S.showSectorFlow)loadSectorFlow(force);
  // 自动模式/分类切换复用刚抓取的真实日K，仅补缺和过期源，减少请求限流。
  let valid=[...new Set(S.catalog.filter(x=>x.s&&(force||!S.market[x.s]?.series?.length||S.market[x.s].is_stale||Date.now()-Date.parse(S.market[x.s].fetched_at||0)>240000)).map(x=>x.s))],batchSize=4;
  const addSet=new Set(S.catalog.filter(x=>x.isSupplemental).map(x=>x.s));let originalIds=valid.filter(id=>!addSet.has(id)),extraIds=valid.filter(id=>addSet.has(id));valid=[];while(originalIds.length||extraIds.length){if(originalIds.length)valid.push(originalIds.shift());if(extraIds.length)valid.push(extraIds.shift());}let batches=[];for(let i=0;i<valid.length;i+=batchSize)batches.push(valid.slice(i,i+batchSize));let errors=0, consecutiveEmpty=0, aborted=false;
@@ -3526,7 +3588,7 @@ function start(){try{const stored=Number(localStorage.getItem('yaoyao_rank_days_
  try{const v=localStorage.getItem('yaoyao_show_ma_columns_v1');if(v!==null)S.showEtfMa=v==='1'}catch{}
  try{const v=localStorage.getItem('yaoyao_catalog_mode_v17');if(v==='yangjibao')S.viewMode=v}catch{}
  S.catalog=loadCatalogFromEmbedded();updateCatalogSwitchUI();let groups=[...new Set(S.catalog.map(x=>x.g))];$('group').innerHTML='<option value="">全部分类</option>'+groups.map(g=>`<option value="${esc(g)}">${esc(g)}</option>`).join('');
- restoreCache();restoreEtfCache();flowHistoryRestore();flowCacheRestore();
+ restoreCache();restoreEtfCache();flowHistoryRestore();flowCacheRestore();yyBoardRestoreToday();
  // 页面整夜不关闭时也要跨北京时间日期清理已显示的昨日资金，不能一直停留旧数据。
  setInterval(()=>{const prior=S.sectorFlowDay;const day=flowPruneToToday();
    if(prior&&prior!==day){render();updateFlowStatusUI()}
@@ -3610,6 +3672,7 @@ function start(){try{const stored=Number(localStorage.getItem('yaoyao_rank_days_
  $('etfTopList').addEventListener('click',e=>{
   const switcher=e.target.closest('[data-daily-prev]');
   if(switcher){S.dailyShowPrevious=switcher.dataset.dailyPrev==='1';renderDailyBoardRanking();return;}
+  if(e.target.closest('[data-daily-retry]')){loadDailyBoardLiveQuotes(true);return;}
   const daily=e.target.closest('[data-daily-sector]');
   if(daily){
    const name=daily.dataset.dailySector;
@@ -3703,7 +3766,22 @@ function start(){try{const stored=Number(localStorage.getItem('yaoyao_rank_days_
  // 浏览器优先多源JSONP拉取真实日K；若第三方网络全部不可用，不提供虚构数据。
  S.serverMode=false;
  S.nextRun=Date.now()+S.autoMinutes*60000;
- if(S.viewMode==='yaoyao')refresh();
+ if(S.viewMode==='yaoyao'){
+   // 今日缓存优先立即呈现，无需等旧指数日K整轮刷新完成。
+   renderDailyBoardRanking();
+   setTimeout(()=>loadDailyBoardLiveQuotes(false),280);
+   // 数据已保存在 market_cache_v3：普通浏览器5分钟内重开优先使用本地历史K，避免每次刷新又扫整页。
+   // 无缓存、新交易日、超过5分钟或点击“更新数据”时仍按原逻辑采集。
+   let skipIndexFetch=false;
+   try{
+     const rec=JSON.parse(localStorage.getItem('yaoyao_v42_index_attempt_v1')||'null'),now=Date.now();
+     if(rec?.day===beijingClock().day&&Number.isFinite(Number(rec.at))&&now>=Number(rec.at)
+       &&now-Number(rec.at)<300000&&Object.values(S.market).some(m=>m?.series?.length)){
+       skipIndexFetch=true;S.nextRun=Number(rec.at)+300000;
+     }
+   }catch{}
+   if(!skipIndexFetch)refresh();
+ }
  setTimeout(()=>initializeWholeMarketScanner(),1400);
  setInterval(()=>{
    updateMarketStatus(); // 即使关闭行情自动刷新，时段标签仍跟随北京时间改变。
