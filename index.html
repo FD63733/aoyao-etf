@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>瑶瑶指数强度量化全览 · V42 多源资金可见性增强</title>
+<title>瑶瑶指数强度量化全览 · V42 今日盘中榜日期修复</title>
 <style>
 :root{--blue:#27318a;--text:#17243e;--bg:#f2f4f8;--border:#d9dde5;--white:#fff;--shadow:0 2px 14px rgba(39,48,83,.045)}
 *{box-sizing:border-box} html,body{margin:0;min-height:100%;font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",Arial,sans-serif;color:var(--text);background:var(--bg)}
@@ -1287,12 +1287,24 @@ header .yy-head-right small{position:static;font-size:12px;font-weight:400;color
 @media(max-width:900px){header .yy-head-right small{display:none}.yy-head-right{right:10px}}
 @media(max-width:600px){header{justify-content:flex-start;padding-left:10px}header strong{font-size:14px;max-width:calc(100% - 118px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.yy-release>summary{font-size:12px;padding:5px 7px}.yy-flowbar{align-items:flex-start}.yy-flow-audit{margin-left:auto}}
 
+
+/* V42 当日榜日期核验：昨天的收盘榜不再冒充今天，盘中榜独立显示。 */
+.etf-rank-note .board-day-mode{font-weight:800;color:#214f9f}
+.etf-rank-note .board-day-mode.live{color:#a35511}
+.etf-rank-note .board-day-mode.old{color:#64748b}
+.etf-rank-note .board-day-note{color:#526a8d}
+.board-day-switch{display:inline-flex;align-items:center;margin-left:9px;padding:4px 10px;border:1px solid #bbcae9;background:#f7faff;border-radius:5px;color:#31549d;font-size:12px;font-weight:750;cursor:pointer;vertical-align:middle}
+.board-day-switch:hover{background:#e8f0ff}
+.board-day-empty{padding:20px 18px;background:#f7f9fe;border:1px dashed #cad7ec;border-radius:8px;color:#4d6285;line-height:1.7;font-size:13px}
+.board-day-empty strong{color:#273f7c}
+.daily-board-card .daily-live-hint{grid-row:4;display:block;padding:7px 9px;background:#edf5ff;border-radius:4px;font-size:12px;color:#456385;line-height:1.5}
 </style></head>
 <body>
 <header><strong id="pageTitle">瑶瑶指数强度量化全览</strong><div class="yy-head-right">
 <details class="yy-release" id="yyReleaseNotes"><summary title="鼠标悬停或点击，查看本版优化内容">已优化内容 ▾</summary>
 <div class="yy-release-pop" role="region" aria-label="版本优化记录">
 <h3>版本优化记录</h3>
+<div class="yy-release-entry"><div class="yy-release-date">2026-11-13 · V42当日榜日期修复</div><h4>1. 今日盘中榜优先</h4><p>交易日优先使用核对为今天的板块指数盘中报价或今日公开日K，真实同日覆盖不足时不把昨天排名叫“今日”。</p><h4>2. 上一交易日单独查看</h4><p>可以切换查看昨日收盘榜，但明显标注“上一交易日”，不混为当日；实时报价只用于盘中涨幅排序，不冒充收盘确认RSI或均线。</p></div>
 <div class="yy-release-entry"><div class="yy-release-date">2026-11-12 · V42资金多源增强</div><h4>1. 资金接口多源备用</h4><p>东方财富直连主备通道、GitHub共享资金快照；同花顺只作独立参考，不直接混用金额。</p><h4>2. 资金获取结果可视化</h4><p>新增资金状态栏，显示今日有效板块数、来源分布与接口状态。没有数据会明确显示“资金待更新”。</p></div>
 <div class="yy-release-entry"><div class="yy-release-date">2026-11-12 · V42资金缓存改进</div><h4>1. 同日增量合并</h4><p>更新成功按板块覆盖最新累计净额，重复刷新不把金额相加；获取失败保留同日已有值。</p><h4>2. 本地恢复及跨日保护</h4><p>关页后同一浏览器可恢复当日资金，跨日失效；本地缓存不自动同步到家人手机。</p></div>
 <div class="yy-release-entry"><div class="yy-release-date">既有V42功能</div><h4>ETF共享历史日K</h4><p>GitHub共享ETF历史数据与资金数据互相独立，资金接口失效不代表ETF行情丢失。</p></div>
@@ -1432,7 +1444,7 @@ CPO,021933,富国中证通信设备主题ETF联接A"></textarea>
           <button type="button" class="etf-rank-tab" id="rankTabStable" role="tab" aria-selected="false" aria-controls="etfTopList" data-etf-rank="stable" tabindex="-1">稳健上涨榜</button>
           <button type="button" class="etf-rank-tab" id="rankTabMomentum" role="tab" aria-selected="false" aria-controls="etfTopList" data-etf-rank="momentum" tabindex="-1">强势上涨榜</button>
         </div>
-      </div><div class="etf-audit-sub">默认显示按板块当日价格涨幅排列的排行榜，右上角标注连续进入前8名的交易日数和 RSI 趋势状态；不是连续上涨天数，也不是买入指令。保留原稳健、强势ETF榜，点击卡片后，下方仅展示该卡片所关联ETF的完整16项独立指标。</div></div>
+      </div><div class="etf-audit-sub">交易时段优先按当日已核验的板块指数行情排榜；今日样本不足时显示待更新，可手动查看上一交易日收盘榜（历史参考），不会把昨日涨幅冒充今日。连续上榜不是连续上涨天数，也不是买入指令。保留原稳健、强势ETF榜，点击卡片后，下方仅展示该卡片所关联ETF的完整16项独立指标。</div></div>
       <div class="etf-audit-controls"><label for="rankDays" class="control-label">榜单周期</label><select id="rankDays" aria-label="三榜历史观察周期"><option value="5">5天</option><option value="10">10天</option><option value="15" selected>15天</option><option value="20">20天</option><option value="30">30天</option></select><label for="focusETF" class="control-label">比较主题</label><select id="focusETF"><option>等待初始化</option></select><label class="etf-ma-toggle" title="显示或隐藏ETF自身5日、20日、60日均线与最新日K价格"><input type="checkbox" id="showEtfMa" checked/>均线数据</label><button type="button" id="verifyETF" class="btn">核验ETF数据</button><label id="strongBothMaLabel" class="strong-both-ma-filter" hidden title="仅在强势上涨榜中，筛选ETF自身最新有效日K同时严格高于MA20和MA60的产品"><input id="strongBothMa" type="checkbox"/><span>仅看站上20日＋60日线</span></label></div>
     </div>
     <section class="whole-market-panel" id="allMarketPanel" aria-label="全市场ETF自动发现与逐只日K扫描">
@@ -1475,7 +1487,7 @@ CPO,021933,富国中证通信设备主题ETF联接A"></textarea>
 <script type="application/json" id="verifiedEtfPeers">{"游戏":[{"code":"159869","name":"游戏ETF华夏","track":"中证动漫游戏指数","relation":"同跟踪指数：与516010比较","type":"t1"},{"code":"516620","name":"影视ETF国泰","track":"中证影视主题指数","relation":"仅相邻主题：不是游戏ETF的同指数替代","type":"related"}],"数字媒体":[{"code":"516620","name":"影视ETF国泰","track":"中证影视主题指数","relation":"仅相关影视主题：与传媒行业宽口径指数不同","type":"related"}]}</script>
 <script>
 'use strict';
-const S={rankDays:15,viewMode:'yaoyao',pendingCatalogRefresh:false,catalog:[],market:{},mode:'group-status',group:'',status:'',q:'',days:15,sortDay:null,sortAsc:false,flowChangeSort:'all',loading:false,lastUpdated:'',serverMode:false,autoMinutes:5,breakoutWindow:10,nextRun:0,changed:false,dates:[],failedLast:0,showT0:true,showJudge:true,rankSort:'default',etfMarket:{},etfBusy:false,etfPendingAgain:false,etfProgress:'',focusETF:'游戏',focusEtfCode:null,etfMetricCache:{},showEtfMa:true,showSectorFlow:true,showDayStatus:true,showTwoDayOutlook:true,showMa5Ma20Analysis:true,sectorFlow:{},sectorFlowHistory:{},sectorFlowStatus:'未开启',sectorFlowBusy:false,sectorFlowFetchedAt:0,sectorFlowDay:"",sectorFlowLastBatchNew:0,sectorFlowStored:false,flowDirection:'all',etfRankMode:'daily',rankCompareVisible:false,expandedEtf:null,expandedCompareCode:null};
+const S={rankDays:15,viewMode:'yaoyao',pendingCatalogRefresh:false,catalog:[],market:{},mode:'group-status',group:'',status:'',q:'',days:15,sortDay:null,sortAsc:false,flowChangeSort:'all',loading:false,lastUpdated:'',serverMode:false,autoMinutes:5,breakoutWindow:10,nextRun:0,changed:false,dates:[],failedLast:0,showT0:true,showJudge:true,rankSort:'default',etfMarket:{},etfBusy:false,etfPendingAgain:false,etfProgress:'',focusETF:'游戏',focusEtfCode:null,etfMetricCache:{},showEtfMa:true,showSectorFlow:true,showDayStatus:true,showTwoDayOutlook:true,showMa5Ma20Analysis:true,sectorFlow:{},sectorFlowHistory:{},sectorFlowStatus:'未开启',sectorFlowBusy:false,sectorFlowFetchedAt:0,sectorFlowDay:"",sectorFlowLastBatchNew:0,sectorFlowStored:false,flowDirection:'all',etfRankMode:'daily',rankCompareVisible:false,expandedEtf:null,expandedCompareCode:null,dailyShowPrevious:false,dailyLive:{day:'',quotes:{},lastAttempt:0,loading:false,failed:0}};
 const $=id=>document.getElementById(id);
 function catalogSourceTag(item){
  if(item.g==='宽基'||(S.viewMode!=='yangjibao'&&!item.isSupplemental))return '';
@@ -2230,8 +2242,64 @@ function dailyBoardSeries(item){
  return (entry?.series||[]).filter(x=>x&&typeof x.d==='string'&&Number.isFinite(+x.c)&&+x.c>0)
     .slice().sort((a,b)=>a.d.localeCompare(b.d));
 }
+/* V42 当日榜独立获取板块指数盘中快照：不挪用ETF价格，不接受昨天的报价。
+   与历史日K解耦；只有核验报价代码与北京时间当天日期才允许进入今日排名。 */
+function yyBoardQuoteDate(raw){
+ const v=String(raw??'').trim();
+ if(/^\d{8}(\d{4,6})?$/.test(v))return {day:v.slice(0,4)+'-'+v.slice(4,6)+'-'+v.slice(6,8),stamp:v.slice(8,12)};
+ if(/^\d{10,13}$/.test(v)){
+  const at=new Date(Number(v)*(v.length===10?1000:1));
+  if(Number.isFinite(at.getTime())){const c=beijingClock(at);return {day:c.day,stamp:c.time.slice(0,5).replace(':','')}}
+ }
+ return null;
+}
+function yyFetchBoardLiveQuote(secid,timeout=5600){return new Promise((resolve,reject)=>{
+ const cb='yy_board_'+Date.now()+'_'+Math.random().toString(36).slice(2),script=document.createElement('script');
+ let done=false,timer;
+ const clean=()=>{if(done)return false;done=true;clearTimeout(timer);script.remove();try{delete window[cb]}catch{window[cb]=undefined};return true};
+ window[cb]=payload=>{
+  if(!clean())return;
+  const d=payload?.data,clock=beijingClock(),seen=yyBoardQuoteDate(d?.f86);
+  const expected=String(secid).split('.')[1].toUpperCase(),actual=String(d?.f57||'').toUpperCase();
+  if(payload?.rc!==0||actual!==expected||seen?.day!==clock.day){reject(Error('指数代码或盘中报价日期未核验'));return}
+  // 最新价和昨收保持同一源原始单位，相除即可得到日内涨跌幅，避免不同接口的单位歧义。
+  const latest=Number(d.f43),previous=Number(d.f60),pct=(latest/previous-1)*100;
+  if(!(latest>0&&previous>0&&Number.isFinite(pct)&&Math.abs(pct)<35)){
+   reject(Error('当日板块指数现价/昨收无效'));return;
+  }
+  resolve({day:seen.day,pct:+pct.toFixed(4),fetchedAt:new Date().toISOString(),stamp:seen.stamp,secid,source:'东方财富板块指数实时快照'});
+ };
+ script.onerror=()=>{if(clean())reject(Error('指数实时报价网络失败'))};
+ timer=setTimeout(()=>{if(clean())reject(Error('指数实时报价超时'))},timeout);
+ const u=new URL('https://push2.eastmoney.com/api/qt/stock/get');
+ for(const [k,v] of Object.entries({secid,cb,fields:'f43,f57,f58,f60,f86',fltt:'2',ut:'fa5fd1943c7b386f172d6893dbfba10b',_:String(Date.now())}))u.searchParams.set(k,v);
+ script.src=u.toString();document.head.appendChild(script);
+})}
+async function loadDailyBoardLiveQuotes(force=false){
+ const clock=beijingClock(),store=S.dailyLive;
+ // 交易日前的收盘榜独立显示；不在周末、夜间或假期盲目制作今日盘中榜。
+ if(clock.weekend||clock.minute<570||clock.minute>1000||S.viewMode!=='yaoyao')return;
+ if(store.loading||(!force&&store.day===clock.day&&Date.now()-store.lastAttempt<150000))return;
+ if(store.day!==clock.day){store.day=clock.day;store.quotes={}}
+ store.loading=true;store.lastAttempt=Date.now();store.failed=0;
+ const ids=[...new Set(dailyBoardUniverse().map(x=>x.s).filter(Boolean))];
+ // 此处只请求板块指数本身，逐批限制并发；遇到连续无数据就熔断，避免影响主站行情。
+ let miss=0;
+ for(let i=0;i<ids.length;i+=4){
+  const group=await Promise.all(ids.slice(i,i+4).map(async id=>{
+    try{return {id,value:await yyFetchBoardLiveQuote(id)}}catch{return {id,value:null}}
+  }));
+  let n=0;
+  for(const r of group){if(r.value){store.quotes[r.id]=r.value;n++}else store.failed++}
+  miss=n===0?miss+1:0;
+  if(S.etfRankMode==='daily')renderDailyBoardRanking();
+  if(miss>=3)break;
+  await sleep(180);
+ }
+ store.loading=false;if(S.etfRankMode==='daily')renderDailyBoardRanking();
+}
 function dailyBoardRankings(){
- const universe=dailyBoardUniverse();
+ const universe=dailyBoardUniverse(),clock=beijingClock(),today=clock.day;
  const records=universe.map(item=>{
   const data=dailyBoardSeries(item),values=new Map();
   for(let i=1;i<data.length;i++){
@@ -2242,34 +2310,41 @@ function dailyBoardRankings(){
   }
   return {item,values,entry:S.market[item.s]};
  });
- const dates=[...new Set(records.flatMap(r=>[...r.values.keys()]))].sort((a,b)=>b.localeCompare(a)).slice(0,90);
- const required=Math.max(6,Math.ceil(universe.length*.62));
- const dayRanks=[];
- for(const day of dates){
-  const eligible=records.filter(r=>r.values.has(day));
-  if(eligible.length<required)continue;
-  const ranked=eligible.map(r=>({item:r.item,entry:r.entry,change:r.values.get(day)}))
-   .sort((a,b)=>b.change-a.change || a.item.n.localeCompare(b.item.n,'zh'));
+ const histDates=[...new Set(records.flatMap(r=>[...r.values.keys()]))].sort((a,b)=>b.localeCompare(a)).slice(0,100);
+ const required=Math.max(6,Math.ceil(universe.length*.62)),dayRanks=[];
+ for(const day of histDates){
+  if(day>=today)continue; // 今天的盘中数据单独合并，不和昨天的收盘榜混排
+  const eligible=records.filter(r=>r.values.has(day));if(eligible.length<required)continue;
+  const ranked=eligible.map(r=>({item:r.item,entry:r.entry,change:r.values.get(day),isLive:false}))
+   .sort((a,b)=>b.change-a.change||a.item.n.localeCompare(b.item.n,'zh'));
   dayRanks.push({day,ranked,coverage:eligible.length});
  }
- const current=dayRanks[0];
- if(!current)return {list:[],day:null,coverage:records.filter(r=>r.values.size>0).length,required,total:universe.length};
- const winners=current.ranked.slice(0,8).map((r,i)=>{
+ // 同日的历史日K及“明确标记今日日期”的板块实时行情可以合并；同一指数实时快照优先。
+ const todayRows=records.flatMap(r=>{
+  const quote=S.dailyLive.day===today?S.dailyLive.quotes[r.item.s]:null;
+  if(quote?.day===today)return [{item:r.item,entry:r.entry,change:quote.pct,isLive:true,stamp:quote.stamp}];
+  const row=r.entry?.series?.find(x=>x.d===today);
+  if(r.values.has(today)&&row?.c>0)return [{item:r.item,entry:r.entry,change:r.values.get(today),isLive:false}];
+  return [];
+ }).sort((a,b)=>b.change-a.change||a.item.n.localeCompare(b.item.n,'zh'));
+ const todayUsable=todayRows.length>=required;
+ const regularSession=!clock.weekend&&clock.minute>=570;
+ const useToday=!S.dailyShowPrevious&&todayUsable;
+ // 开盘前与周末明确标“上一交易日”；开盘后有数据才允许生成今日榜。
+ const chosen=useToday?{day:today,ranked:todayRows,coverage:todayRows.length}:dayRanks[0];
+ const mode=useToday?'today':(S.dailyShowPrevious||!regularSession?'previous':'pending');
+ if(mode==='pending'||!chosen)return {list:[],day:mode==='pending'?today:null,coverage:todayRows.length,required,total:universe.length,mode,
+  priorDay:dayRanks[0]?.day||null,partial:todayRows.length>0,liveLoading:S.dailyLive.loading};
+ const sequence=useToday?[chosen,...dayRanks]:dayRanks;
+ const winners=chosen.ranked.slice(0,8).map((r,i)=>{
   let streak=0;
-  for(const record of dayRanks){
-   if(record.ranked.slice(0,8).some(x=>x.item.n===r.item.n))streak++;
-   else break;
-  }
-  const m=r.entry?.stats?.[current.day];
-  return {...r,rank:i+1,streak,status:m?.st||'待更新',rsi:m?.v??null};
+  for(const record of sequence){if(record.ranked.slice(0,8).some(x=>x.item.n===r.item.n))streak++;else break}
+  const m=r.isLive?null:r.entry?.stats?.[chosen.day];
+  return {...r,rank:i+1,streak,status:r.isLive?'盘中待确认':m?.st||'待更新',rsi:m?.v??null};
  });
- const clock=beijingClock();
- const today=current.day===clock.day;
- const intraday=today && (clock.minute<935 || !winners.every(x=>x.entry&&!x.entry.is_stale&&isAfterCloseFetch(x.entry,clock)));
- const stale=winners.some(x=>x.entry?.is_stale);
- const newest=dates[0]||null;
- return {list:winners,day:current.day,coverage:current.coverage,required,total:universe.length,intraday,stale,
-  partial:newest>current.day,observedDays:dayRanks.length};
+ return {list:winners,day:chosen.day,coverage:chosen.coverage,required,total:universe.length,mode,priorDay:dayRanks[0]?.day||null,
+  intraday:useToday&&clock.minute<935,stale:winners.some(x=>x.entry?.is_stale),observedDays:sequence.length,
+  hasLive:winners.some(x=>x.isLive),liveLoading:S.dailyLive.loading};
 }
 function etfCardMA(value){
  const cls=value===true?'yes':value===false?'no':'unknown';
@@ -2380,28 +2455,42 @@ function sectorIndexMALines(item,refDate){
  return {above5:ma5===null?null:current>ma5,above20:ma20===null?null:current>ma20,above60:ma60===null?null:current>ma60};
 }
 function renderDailyBoardRanking(){
- const result=dailyBoardRankings();
- const note=result.day ? `<div class="etf-rank-note"><b>当日板块涨幅排行 · ${esc(result.day)}</b> · 已纳入 ${result.coverage}/${result.total} 个行业板块，前8名 · 连续上榜按此榜每日前8名计数，不是连续上涨；近${S.rankDays}日涨幅仅作附加参考，排名仍按当日涨跌。${result.intraday?' <strong class="daily-warning">盘中暂定，收盘后重新计算</strong>':' 最近可用交易日的收盘价排名。'}${result.stale?' 部分行情来自缓存，请核对日期。':''}${result.partial?' 最新交易日数据覆盖不足，使用上一数据较完整的交易日。':''}</div>`:
- `<div class="etf-rank-note"><b>当日板块排行榜</b> · 需至少 ${result.required}/${result.total} 个行业板块取得同一交易日的连续两根有效日K后才排名；正在取数或接口不可用时不会编造涨幅。</div>`;
+ const result=dailyBoardRankings(),clock=beijingClock();
+ const toggle=result.mode==='previous'
+  ?'<button type="button" class="board-day-switch" data-daily-prev="0">返回今日榜</button>'
+  :result.mode==='pending'&&result.priorDay
+  ?`<button type="button" class="board-day-switch" data-daily-prev="1">查看${esc(result.priorDay)}收盘榜（历史参考）</button>`:'';
+ let note='';
+ if(result.mode==='today'){
+  const confirmed=clock.minute>=935&&!result.hasLive;
+  note=`<div class="etf-rank-note"><b class="board-day-mode ${confirmed?'':'live'}">${confirmed?'今日板块涨幅排行':'今日盘中涨幅榜（待收盘）'} · ${esc(result.day)}</b> · <span class="board-day-note">仅按已取得的今日板块指数行情排名，覆盖${result.coverage}/${result.total}项。${result.hasLive?'包含已核对为今天的盘中报价；':''}盘中实时涨跌幅会变化，未收盘不视为RSI/均线最终信号。</span>${result.stale?' 部分历史日K使用缓存。':''}</div>`;
+ }else if(result.mode==='previous'){
+  note=`<div class="etf-rank-note"><b class="board-day-mode old">上一交易日收盘榜 · ${esc(result.day)}</b> · 仅供历史参考，不代表${esc(clock.day)}今日涨幅。覆盖${result.coverage}/${result.total}项。${toggle}</div>`;
+ }else{
+  note=`<div class="etf-rank-note"><b class="board-day-mode live">今日盘中榜 · ${esc(clock.day)}</b> · 今日已有${result.coverage}/${result.total}项有效板块报价，需至少${result.required}项相同交易日数据后才能可靠排名。${result.liveLoading?'正在继续核对今日实时报价。':'今日数据仍不足，暂不展示昨天的榜单。'}${toggle}</div>`;
+ }
  const cards=result.list.map(r=>{
   const statusClass=r.status==='突破'?'breakout':r.status==='走强'?'strong':r.status==='回调'?'pullback':'mixed';
   const statusBadge=`<span class="daily-status daily-${statusClass}">${esc(r.status)}</span>`;
   const gainClass=r.change>0?'up':r.change<0?'down':'neutral';
   const ageLabel=r.streak>=result.observedDays&&result.observedDays<30?`连续≥${r.streak}天`:`连续${r.streak}天`;
-  const rm=sectorIndexMALines(r.item,result.day);
-  const maHint=etfCardMALine(rm, '本卡片展示板块指数自身的5/20/60日均线状态；不以ETF价格冒充指数均线');
+  const rm=r.isLive?null:sectorIndexMALines(r.item,result.day);
+  const maHint=r.isLive?`<span class="rank-ma-hint"><span>均线等待今日日K</span></span>`:etfCardMALine(rm,'本卡展示板块指数自身5/20/60日均线，不以ETF价格冒充指数均线');
   const periodRet=rankedReturnFromRows(S.market[r.item.s]?.series,result.day,S.rankDays);
   const periodMove=`<span>近${S.rankDays}日 <b class="daily-gain ${periodRet>0?'up':periodRet<0?'down':'neutral'}">${pctText(periodRet)}</b></span>`;
-  return `<button type="button" class="etf-top-card daily-board-card ${S.focusETF===r.item.n&&S.rankCompareVisible?'etf-rank-selected':''}" data-daily-sector="${esc(r.item.n)}" aria-pressed="${S.focusETF===r.item.n&&S.rankCompareVisible?'true':'false'}" title="${esc(r.item.n)} · ${esc(result.day)} · 连续进入板块涨幅前8名${r.streak}个有完整数据的交易日；该标记不是连续上涨天数">
+  const footer=r.isLive?`<span class="daily-live-hint">盘中涨幅使用${esc(result.day)}当日指数报价；趋势、RSI和均线需今日有效日K更新后再复核，不作为收盘确认信号。</span>`:
+   rankActionTip(rm,r.status,periodRet,'板块指数',r.item.s,result.day);
+  return `<button type="button" class="etf-top-card daily-board-card ${S.focusETF===r.item.n&&S.rankCompareVisible?'etf-rank-selected':''}" data-daily-sector="${esc(r.item.n)}" aria-pressed="${S.focusETF===r.item.n&&S.rankCompareVisible?'true':'false'}" title="${esc(r.item.n)} · ${esc(result.day)} · 已核验${result.mode==='today'?'今日盘中':'上一交易日'}行情，连续上榜不等于连续上涨">
    <span class="etf-card-title-row"><span class="rank-badge ${r.rank<=3?'top':'mid'}">#${r.rank}</span><strong>${esc(r.item.n)}</strong></span>
    <span class="daily-board-side"><span class="daily-streak">${ageLabel}</span>${statusBadge}</span>
    ${maHint}
-   <span class="sub">${esc(r.item.g)} · ${esc(result.day)}${result.intraday?' · 盘中':''}${r.entry?.is_stale?' · 缓存':''}</span>
-   <span class="vals">当日涨跌 <b class="daily-gain ${gainClass}">${pctText(r.change)}</b>${periodMove}<span>RSI(14) ${r.rsi==null?'—':Number(r.rsi).toFixed(1)}</span></span>
-   ${rankActionTip(rm,r.status,periodRet,'板块指数',r.item.s,result.day)}
+   <span class="sub">${esc(r.item.g)} · ${esc(result.day)}${result.mode==='today'?' · 今日盘中':' · 上一交易日'}${r.isLive?' · 实时报价':r.entry?.is_stale?' · 缓存':''}</span>
+   <span class="vals">${result.mode==='today'?'今日涨跌':'当日涨跌'} <b class="daily-gain ${gainClass}">${pctText(r.change)}</b>${periodMove}<span>RSI(14) ${r.rsi==null?'—':Number(r.rsi).toFixed(1)}</span></span>
+   ${footer}
   </button>`;
  }).join('');
- const empty=`<div class="etf-audit-empty">${S.loading?'行业公开日K正在加载，请检查行情来源。':'当前没有足够同一交易日的行业指数行情生成可靠日榜（与ETF样本扫描是两组独立数据）；可以切换上方「稳健上涨榜」「强势上涨榜」查看已取得真实日K的ETF样本观察，或点顶部“更新数据”重试。'} 不会用ETF走势代替板块涨幅。</div>`;
+ const empty=result.mode==='pending'?`<div class="board-day-empty"><strong>${esc(clock.day)} 今日榜尚未形成</strong>：目前还没有达到同一交易日指数行情的最低覆盖数量。请稍后刷新；若行情接口限流，则不会把${esc(result.priorDay||'上一交易日')}的数字冒充今天的数据。</div>`:
+ '<div class="board-day-empty">目前尚没有足够完整的历史板块日K，无法形成可核验的收盘排名。</div>';
  $('etfTopList').innerHTML=note+(cards||empty);
 }
 /* V24: 稳健榜/强势榜的连续上榜按本页已收录ETF在历史日K中的同一榜单重新计算。
@@ -3225,6 +3314,8 @@ async function refresh(force=false){if(S.loading)return;S.loading=true;render();
  await sleep(600);
  }
  S.loading=false;S.failedLast=errors;S.lastUpdated=new Date().toLocaleTimeString('zh-CN',{hour12:false});S.nextRun=S.autoMinutes?Date.now()+S.autoMinutes*60000:0;render();
+ // 今日盘中榜独立请求同日指数即时快照；不影响主表历史K或共享ETF采集。
+ if(S.viewMode==='yaoyao')setTimeout(()=>loadDailyBoardLiveQuotes(false),400);
  let success=Object.values(S.market).filter(x=>x.series?.length>=35).length;
  if(!success)notice('尚未获取到任何真实行情。请检查网络是否能访问东方财富，或该公开接口是否已调整/限流。已尝试东方财富及适用代码的腾讯备用行情。浏览器直连仍受网络、代理与接口限制，若多设备均无法获取，请改为部署服务端行情代理。不会生成模拟数据。');
  else if(aborted)notice('本轮连续两个批次无法获得新行情，已暂停后续请求以避免等待过久；保留此前成功获取的日期与数值。可稍后点“更新数据”重试。');
@@ -3517,6 +3608,8 @@ function start(){try{const stored=Number(localStorage.getItem('yaoyao_rank_days_
   const tab=$('etfRankTabs').querySelector(`[data-etf-rank="${next}"]`);if(tab){tab.click();tab.focus()}
  });
  $('etfTopList').addEventListener('click',e=>{
+  const switcher=e.target.closest('[data-daily-prev]');
+  if(switcher){S.dailyShowPrevious=switcher.dataset.dailyPrev==='1';renderDailyBoardRanking();return;}
   const daily=e.target.closest('[data-daily-sector]');
   if(daily){
    const name=daily.dataset.dailySector;
